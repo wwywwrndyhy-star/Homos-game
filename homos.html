@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تكتكس رويال | Tactix Royal - التطبيق الأسطوري الشامل</title>
+    <title>تكتكس رويال | Tactix Royal - التطبيق الأونلاين الشامل</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Cairo -->
@@ -17,7 +17,7 @@
                     fontFamily: { cairo: ['Cairo', 'sans-serif'] },
                     colors: {
                         darkBg: '#090d16',
-                        glassBg: 'rgba(17, 24, 39, 0.75)',
+                        glassBg: 'rgba(17, 24, 39, 0.8)',
                         glassBorder: 'rgba(255, 255, 255, 0.08)',
                         accentGold: '#f59e0b',
                     }
@@ -27,7 +27,7 @@
     </script>
     <style>
         body { font-family: 'Cairo', sans-serif; background-color: #090d16; color: #f3f4f6; overflow-x: hidden; }
-        .glass-panel { background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
+        .glass-panel { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.3s ease; }
         .glass-card:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(245, 158, 11, 0.4); transform: translateY(-3px); }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -106,9 +106,6 @@
                     <i class="fa-solid fa-coins text-amber-400"></i>
                     <span id="headerBalance" class="font-bold text-sm text-amber-300">€300.0M</span>
                 </div>
-                <button onclick="openAdminPanel()" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-amber-400" title="لوحة الأدمن">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </button>
                 <button onclick="handleLogout()" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-red-400 hover:bg-red-500/20" title="خروج">
                     <i class="fa-solid fa-power-off"></i>
                 </button>
@@ -118,7 +115,7 @@
         <!-- FLASH NEWS TICKER -->
         <div class="bg-amber-500/10 border-b border-amber-500/20 py-1.5 px-4 text-xs text-amber-300 flex items-center gap-3 overflow-hidden whitespace-nowrap">
             <span class="bg-amber-500 text-black font-bold px-2 py-0.5 rounded text-[10px] uppercase">عاجل</span>
-            <div id="globalNewsTicker" class="animate-marquee">مرحباً بك في موسم تكتكس رويال 2026! استعد للمنافسة على الكأس الكبرى وسوق الانتقالات المشتعل.</div>
+            <div class="animate-marquee">مرحباً بك في موسم تكتكس رويال أونلاين! استعد للمنافسة على الكأس الكبرى وسوق الانتقالات المشتعل.</div>
         </div>
 
         <!-- CONTENT CONTAINER -->
@@ -150,7 +147,7 @@
                 <div class="glass-panel p-5 rounded-2xl flex justify-between items-center">
                     <div>
                         <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-store"></i> سوق اللاعبين العالمي</h2>
-                        <p class="text-xs text-gray-400">تعاقد مع أفضل نجوم العالم لدعم صفوفك.</p>
+                        <p class="text-xs text-gray-400">تعاقد مع أفضل نجوم العالم لدعم صفوفك (لا يمكن شراء نفس اللاعب مرتين).</p>
                     </div>
                 </div>
                 <div id="marketPlayersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
@@ -168,10 +165,10 @@
             <div id="tab-rooms" class="space-y-6 tab-content hidden">
                 <div class="glass-panel p-5 rounded-2xl flex justify-between items-center">
                     <div>
-                        <h2 class="text-xl font-black text-amber-400"><i class="fa-solid fa-key"></i> غرف المباريات المباشرة 1 ضد 1</h2>
-                        <p class="text-xs text-gray-400">أنشئ غرفة خاصة برمز سري وتحدى أصدقائك فوراً.</p>
+                        <h2 class="text-xl font-black text-amber-400"><i class="fa-solid fa-key"></i> غرف المباريات المباشرة 1 ضد 1 (أونلاين)</h2>
+                        <p class="text-xs text-gray-400">أنشئ غرفة خاصة برمز سري وتحدى أصدقائك.</p>
                     </div>
-                    <button onclick="createPrivateRoom()" class="bg-amber-500 text-black font-extrabold px-5 py-2.5 rounded-xl text-sm">إنشاء غرفة</button>
+                    <button onclick="createPrivateRoom()" class="bg-amber-500 text-black font-extrabold px-5 py-2.5 rounded-xl text-sm shadow-lg">إنشاء غرفة</button>
                 </div>
                 <div class="glass-panel p-5 rounded-2xl space-y-4">
                     <h3 class="font-bold text-amber-400 border-b border-gray-700 pb-2">الانضمام برمز الغرفة</h3>
@@ -183,26 +180,26 @@
                 <div id="activeRoomsList" class="space-y-2"></div>
             </div>
 
-            <!-- TAB 5: CUP (الكأس) -->
+            <!-- TAB 5: CUP (الكأس الأونلاين) -->
             <div id="tab-cup" class="space-y-6 tab-content hidden">
                 <div class="glass-panel p-5 rounded-2xl text-center space-y-3">
-                    <span class="bg-amber-500/20 text-amber-400 px-4 py-1.5 rounded-full text-xs font-black border border-amber-500/30">بطولة الكأس الملكي (16 فريق)</span>
+                    <span class="bg-amber-500/20 text-amber-400 px-4 py-1.5 rounded-full text-xs font-black border border-amber-500/30">بطولة الكأس الملكي (16 فريق) أونلاين</span>
                     <h2 class="text-2xl font-black text-white">بطولة خروج المغلوب الكبرى</h2>
                     <button onclick="registerForCup()" id="cupRegisterBtn" class="bg-amber-500 text-black font-black px-8 py-3 rounded-xl shadow-lg">تسجيل النادي في البطولة</button>
                 </div>
                 <div class="glass-panel p-6 rounded-2xl space-y-4">
                     <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-amber-400">حالة المشاركين في الكأس</h3>
+                        <h3 class="font-bold text-amber-400">حالة المشاركين في الكأس (مزامنة حية)</h3>
                         <span id="cupParticipantsCount" class="bg-amber-500/20 text-amber-300 font-bold px-3 py-1 rounded-lg text-xs">0 / 16 لاعب</span>
                     </div>
                     <div id="cupBracketList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3"></div>
                 </div>
             </div>
 
-            <!-- TAB 6: 👑 9 ULTIMATE ADDITIVE FEATURES (مركز التحديات والمميزات الـ 9) -->
+            <!-- TAB 6: 👑 9 ULTIMATE FEATURES (مركز التحديات والأزمات والحظ) -->
             <div id="tab-features" class="space-y-6 tab-content hidden">
                 <div class="glass-panel p-5 rounded-2xl">
-                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-bolt"></i> مركز المميزات والتحديات الإدمانية الشامل</h2>
+                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-bolt"></i> مركز التحديات والمميزات الشامل (أونلاين)</h2>
                     <p class="text-xs text-gray-400">عجلة الحظ، تطوير الاستاد، ركلات الجزاء، المزايدات، الديربي، الأزمات الطارئة، صناديق الحظ، الكشاف السري، ومقامرة الدقيقة 90!</p>
                 </div>
 
@@ -337,32 +334,13 @@
         </div>
     </div>
 
-    <!-- ADMIN PANEL MODAL -->
-    <div id="adminModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/90 backdrop-blur-lg p-4">
-        <div class="glass-panel w-full max-w-lg p-6 rounded-3xl relative space-y-4">
-            <div class="flex justify-between items-center border-b border-gray-700 pb-3">
-                <h3 class="text-lg font-black text-amber-400"><i class="fa-solid fa-shield-halved"></i> لوحة تحكم الأدمن</h3>
-                <button onclick="closeAdminPanel()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs text-gray-300 mb-1">بث خبر عاجل عالمي (Global News):</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="adminNewsInput" placeholder="أدخل النص الإخباري..." class="flex-1 bg-black/50 border border-gray-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-amber-400">
-                        <button onclick="adminPublishNews()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-xl text-sm">نشر</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FIREBASE & ULTIMATE APP SCRIPT -->
+    <!-- FIREBASE & ULTIMATE ONLINE APP SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, set, get, onValue, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Firebase Configuration
+        // Firebase Configuration provided by user
         const firebaseConfig = {
             apiKey: "AIzaSyCBEtbRajG95opDRkHbstnmt79a4v8lUX0",
             authDomain: "xojs-4e0dc.firebaseapp.com",
@@ -378,30 +356,35 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        let localState = {
-            currentUser: null,
-            marketPlayers: [
-                { id: "p1", name: "كيليان مبابي", pos: "ST", rating: 93, price: 70.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" },
-                { id: "p2", name: "محمد صلاح", pos: "RW", rating: 91, price: 50.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" },
-                { id: "p3", name: "كيفين دي بروين", pos: "CM", rating: 91, price: 55.0, photo: "https://images.unsplash.com/photo-1511886929373-071d9742a943?w=120" },
-                { id: "p4", name: "فيرجيل فان دايك", pos: "CB", rating: 89, price: 40.0, photo: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=120" }
-            ],
-            marketManagers: [
-                { id: "m1", name: "بيب جوارديولا", style: "تيكي تاكا هجومية", price: 25.0, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" },
-                { id: "m2", name: "كارلو أنشيلوتي", style: "إدارة نجوم متوازنة", price: 20.0, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120" }
-            ],
-            rooms: {},
-            cupParticipants: []
-        };
+        let currentUserData = null;
+        let currentUid = null;
 
-        onAuthStateChanged(auth, async (user) => {
+        const marketPlayersCatalog = [
+            { id: "p1", name: "كيليان مبابي", pos: "ST", rating: 93, price: 70.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" },
+            { id: "p2", name: "محمد صلاح", pos: "RW", rating: 91, price: 50.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" },
+            { id: "p3", name: "كيفين دي بروين", pos: "CM", rating: 91, price: 55.0, photo: "https://images.unsplash.com/photo-1511886929373-071d9742a943?w=120" },
+            { id: "p4", name: "فيرجيل فان دايك", pos: "CB", rating: 89, price: 40.0, photo: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=120" }
+        ];
+
+        const managersCatalog = [
+            { id: "m1", name: "بيب جوارديولا", style: "تيكي تاكا هجومية", price: 25.0, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" },
+            { id: "m2", name: "كارلو أنشيلوتي", style: "إدارة نجوم متوازنة", price: 20.0, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120" }
+        ];
+
+        // Realtime Auth & Data Sync
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                const snap = await get(ref(db, 'users/' + user.uid));
-                if (snap.exists()) {
-                    localState.currentUser = snap.val();
-                    renderApp();
-                }
+                currentUid = user.uid;
+                const userRef = ref(db, 'users/' + user.uid);
+                onValue(userRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        currentUserData = snapshot.val();
+                        renderApp();
+                    }
+                });
             } else {
+                currentUserData = null;
+                currentUid = null;
                 document.getElementById('authScreen').classList.remove('hidden');
                 document.getElementById('mainApp').classList.add('hidden');
             }
@@ -450,11 +433,9 @@
                     email, managerName, clubName, badge,
                     balance: 300.0,
                     stadiumLevel: 1,
-                    squad: [{ id: "p_init", name: "أحمد هجوم", pos: "ST", rating: 87, price: 30.0 }]
+                    squad: [{ id: "p_init", name: "أحمد هجوم", pos: "ST", rating: 87, price: 30.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" }]
                 };
                 await set(ref(db, 'users/' + cred.user.uid), userObj);
-                localState.currentUser = userObj;
-                renderApp();
             } catch (e) {
                 alert("خطأ في التسجيل: " + e.message);
             }
@@ -465,7 +446,9 @@
         function renderApp() {
             document.getElementById('authScreen').classList.add('hidden');
             document.getElementById('mainApp').classList.remove('hidden');
-            const u = localState.currentUser;
+            const u = currentUserData;
+            if (!u) return;
+
             document.getElementById('headerBadge').innerText = u.badge;
             document.getElementById('headerClubName').innerText = u.clubName;
             document.getElementById('headerManagerName').innerText = "المدرب: " + u.managerName;
@@ -475,7 +458,8 @@
             renderSquad();
             renderMarket();
             renderManagers();
-            renderCup();
+            listenToRooms();
+            listenToCup();
         }
 
         window.switchTab = function(tabName) {
@@ -485,17 +469,23 @@
             document.querySelector(`[data-tab="${tabName}"]`).classList.add('text-amber-400');
         };
 
+        async function saveUserData() {
+            if (!currentUid || !currentUserData) return;
+            await set(ref(db, 'users/' + currentUid), currentUserData);
+        }
+
         function renderSquad() {
             const container = document.getElementById('squadPlayersList');
             container.innerHTML = '';
-            let totalRating = Math.round(localState.currentUser.squad.reduce((acc, p) => acc + p.rating, 0) / localState.currentUser.squad.length);
-            document.getElementById('squadRating').innerText = totalRating || 80;
+            const squad = currentUserData.squad || [];
+            let totalRating = squad.length > 0 ? Math.round(squad.reduce((acc, p) => acc + p.rating, 0) / squad.length) : 80;
+            document.getElementById('squadRating').innerText = totalRating;
 
-            localState.currentUser.squad.forEach(p => {
+            squad.forEach(p => {
                 container.innerHTML += `
                     <div class="glass-card p-4 rounded-2xl flex flex-col items-center text-center space-y-2">
                         <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded">${p.pos}</span>
-                        <img src="${p.photo || 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120'}" class="w-14 h-14 rounded-full object-cover border border-amber-400/30">
+                        <img src="${p.photo}" class="w-14 h-14 rounded-full object-cover border border-amber-400/30">
                         <h4 class="font-bold text-sm text-white">${p.name}</h4>
                         <span class="text-xs text-amber-300 font-bold">التقييم: ${p.rating}</span>
                     </div>
@@ -506,33 +496,50 @@
         function renderMarket() {
             const container = document.getElementById('marketPlayersGrid');
             container.innerHTML = '';
-            localState.marketPlayers.forEach(p => {
+            const squad = currentUserData.squad || [];
+
+            marketPlayersCatalog.forEach(p => {
+                const isOwned = squad.some(item => item.id === p.id);
                 container.innerHTML += `
                     <div class="glass-card p-4 rounded-2xl space-y-3">
                         <div class="flex justify-between items-center"><span class="text-xs text-amber-300 font-bold">€${p.price}M</span><span class="text-xs text-gray-400">تقييم: ${p.rating}</span></div>
                         <img src="${p.photo}" class="w-12 h-12 rounded-xl object-cover">
                         <h4 class="font-bold text-sm text-white">${p.name}</h4>
-                        <button onclick="buyPlayer('${p.id}')" class="w-full bg-amber-500 text-black font-bold py-2 rounded-xl text-xs">تعاقد الآن</button>
+                        <button onclick="buyPlayer('${p.id}')" ${isOwned ? 'disabled class="w-full bg-gray-700 text-gray-400 font-bold py-2 rounded-xl text-xs cursor-not-allowed"' : 'class="w-full bg-amber-500 text-black font-bold py-2 rounded-xl text-xs hover:opacity-90 transition"'}>
+                            ${isOwned ? 'ممتلك (في تشكيلتك)' : 'تعاقد الآن'}
+                        </button>
                     </div>
                 `;
             });
         }
 
         window.buyPlayer = async function(id) {
-            const p = localState.marketPlayers.find(x => x.id === id);
-            const u = localState.currentUser;
-            if (u.balance < p.price) { alert("رصيدك لا يكفي!"); return; }
-            u.balance -= p.price;
-            u.squad.push(p);
-            await set(ref(db, 'users/' + u.uid), u);
+            const player = marketPlayersCatalog.find(x => x.id === id);
+            if (!player) return;
+            const squad = currentUserData.squad || [];
+
+            // Prevent duplicate purchase check
+            if (squad.some(p => p.id === id)) {
+                alert("⚠️ هذا اللاعب موجود بالفعل في تشكيلتك ولا يمكن شراؤه مرتين!");
+                return;
+            }
+
+            if (currentUserData.balance < player.price) {
+                alert("رصيد ناديك لا يكفي لإتمام هذه الصفقة!");
+                return;
+            }
+
+            currentUserData.balance -= player.price;
+            currentUserData.squad.push(player);
+            await saveUserData();
             renderApp();
-            alert(`تم التعاقد مع النجم ${p.name} بنجاح!`);
+            alert(`تم التعاقد مع النجم ${player.name} بنجاح وتم حفظه في تشكيلتك أونلاين!`);
         };
 
         function renderManagers() {
             const container = document.getElementById('managersGrid');
             container.innerHTML = '';
-            localState.marketManagers.forEach(m => {
+            managersCatalog.forEach(m => {
                 container.innerHTML += `
                     <div class="glass-card p-4 rounded-2xl space-y-3">
                         <img src="${m.photo}" class="w-12 h-12 rounded-xl object-cover">
@@ -544,33 +551,85 @@
             });
         }
 
-        window.createPrivateRoom = function() {
+        // Online Rooms Sync
+        window.createPrivateRoom = async function() {
             const code = Math.floor(1000 + Math.random() * 9000).toString();
-            localState.rooms[code] = { host: localState.currentUser.clubName };
-            alert(`تم إنشاء الغرفة! الرمز السري هو: ${code}`);
+            const roomRef = ref(db, 'rooms/' + code);
+            await set(roomRef, { host: currentUserData.clubName, status: 'waiting' });
+            alert(`تم إنشاء الغرفة أونلاين بنجاح! رمز الغرفة هو: ${code}`);
         };
 
         window.joinRoomByCode = function() {
             const code = document.getElementById('roomCodeInput').value.trim();
-            if (!code || !localState.rooms[code]) { alert("رمز الغرفة غير صحيح!"); return; }
-            startLiveMatch("مباراة الغرفة الخاصة 1 ضد 1", localState.rooms[code].host);
+            const roomRef = ref(db, 'rooms/' + code);
+            get(roomRef).then((snap) => {
+                if (!snap.exists()) {
+                    alert("رمز الغرفة غير صحيح أو غير موجود!");
+                    return;
+                }
+                const roomData = snap.val();
+                startLiveMatch("مباراة الغرفة الخاصة أونلاين", roomData.host);
+            });
         };
 
-        window.registerForCup = function() {
-            localState.cupParticipants.push({ name: localState.currentUser.clubName, badge: localState.currentUser.badge });
-            renderCup();
-            alert("تم تسجيل ناديك في كأس تكتكس رويال!");
-        };
+        function listenToRooms() {
+            const roomsRef = ref(db, 'rooms');
+            onValue(roomsRef, (snapshot) => {
+                const container = document.getElementById('activeRoomsList');
+                container.innerHTML = '';
+                if (!snapshot.exists()) {
+                    container.innerHTML = '<p class="text-xs text-gray-400 text-center py-4">لا توجد غرف نشطة أونلاين حالياً.</p>';
+                    return;
+                }
+                const rooms = snapshot.val();
+                Object.entries(rooms).forEach(([code, data]) => {
+                    container.innerHTML += `
+                        <div class="flex justify-between items-center bg-black/40 p-3 rounded-xl border border-white/5">
+                            <span class="text-xs text-white">غرفة المنظم: <b>${data.host}</b> (الرمز: ${code})</span>
+                            <button onclick="startLiveMatch('مباراة أونلاين', '${data.host}')" class="bg-amber-500 text-black font-bold px-3 py-1.5 rounded-lg text-xs">انضمام للمباراة</button>
+                        </div>
+                    `;
+                });
+            });
+        }
 
-        function renderCup() {
-            const count = localState.cupParticipants.length;
-            document.getElementById('cupParticipantsCount').innerText = `${count} / 16 لاعب`;
-            const container = document.getElementById('cupBracketList');
-            container.innerHTML = '';
-            for (let i = 0; i < 16; i++) {
-                const p = localState.cupParticipants[i];
-                container.innerHTML += `<div class="glass-card p-3 rounded-xl text-xs">${p ? p.name : `مقعد شاغر #${i+1}`}</div>`;
+        // Online Cup Sync
+        window.registerForCup = async function() {
+            const cupRef = ref(db, 'cup_participants');
+            const snap = await get(cupRef);
+            let participants = snap.exists() ? snap.val() : [];
+
+            if (participants.some(p => p.uid === currentUid)) {
+                alert("ناديك مسجل بالفعل في بطولة الكأس أونلاين!");
+                return;
             }
+
+            participants.push({ uid: currentUid, name: currentUserData.clubName, badge: currentUserData.badge });
+            await set(cupRef, participants);
+            alert("تم تسجيل ناديك في كأس تكتكس رويال بنجاح!");
+        };
+
+        function listenToCup() {
+            const cupRef = ref(db, 'cup_participants');
+            onValue(cupRef, (snapshot) => {
+                const participants = snapshot.exists() ? snapshot.val() : [];
+                document.getElementById('cupParticipantsCount').innerText = `${participants.length} / 16 لاعب`;
+                const container = document.getElementById('cupBracketList');
+                container.innerHTML = '';
+
+                for (let i = 0; i < 16; i++) {
+                    const p = participants[i];
+                    container.innerHTML += `
+                        <div class="glass-card p-3 rounded-xl flex items-center gap-3 border ${p ? 'border-amber-500/40 bg-amber-500/5' : 'border-gray-800'}">
+                            <span class="text-lg">${p ? p.badge : '⚽'}</span>
+                            <div class="truncate">
+                                <span class="block text-xs font-bold text-white truncate">${p ? p.name : `مقعد شاغر #${i+1}`}</span>
+                                <span class="text-[10px] text-gray-400">${p ? 'مؤكد أونلاين' : 'بانتظار التسجيل'}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
         }
 
         // --- LIVE MATCH ENGINE (Web Audio & Speech) ---
@@ -578,7 +637,7 @@
         window.startLiveMatch = function(title, awayName) {
             document.getElementById('matchModal').classList.remove('hidden');
             document.getElementById('matchTitle').innerText = title;
-            document.getElementById('matchHomeTeam').innerText = localState.currentUser.clubName;
+            document.getElementById('matchHomeTeam').innerText = currentUserData.clubName;
             document.getElementById('matchAwayTeam').innerText = awayName;
             document.getElementById('matchScore').innerText = "0 - 0";
             document.getElementById('matchCommentary').innerHTML = '<p class="text-gray-400">[00\'] صافرة البداية!</p>';
@@ -589,7 +648,7 @@
             closeBtn.innerText = "جارِ لعب المباراة...";
 
             playWhistleSound();
-            speakArabic("بدأت المباراة الآن بين الفريقين، نتمنى لكم متابعة ممتعة!");
+            speakArabic("بدأت المباراة الآن بين الفريقين أونلاين، نتمنى لكم متابعة ممتعة!");
 
             let min = 0, hGoals = 0, aGoals = 0;
             if (matchInterval) clearInterval(matchInterval);
@@ -601,14 +660,14 @@
 
                 let text = `الدقيقة ${min}': تنافس قوي في وسط الملعب.`;
                 if (min === 15) {
-                    hGoals++; text = `🔥 هدف أول لصالح ${localState.currentUser.clubName}!`;
-                    playGoalSound(); speakArabic(`هدف أول لصالح نادي ${localState.currentUser.clubName}!`);
+                    hGoals++; text = `🔥 هدف أول لصالح ${currentUserData.clubName}!`;
+                    playGoalSound(); speakArabic(`هدف أول لصالح نادي ${currentUserData.clubName}!`);
                 } else if (min === 60) {
                     aGoals++; text = `⚡ تعادل لصالح ${awayName}!`;
                     speakArabic(`هدف التعادل لصالح نادي ${awayName}.`);
                 } else if (min === 85) {
-                    hGoals++; text = `🎯 هدف القاتل لصالح ${localState.currentUser.clubName}!`;
-                    playGoalSound(); speakArabic(`هدف قاتل في الأوقات الحاسمة لصالح نادي ${localState.currentUser.clubName}!`);
+                    hGoals++; text = `🎯 هدف القاتل لصالح ${currentUserData.clubName}!`;
+                    playGoalSound(); speakArabic(`هدف قاتل في الأوقات الحاسمة لصالح نادي ${currentUserData.clubName}!`);
                 }
 
                 document.getElementById('matchScore').innerText = `${hGoals} - ${aGoals}`;
@@ -623,9 +682,9 @@
                     closeBtn.disabled = false;
                     closeBtn.className = "bg-amber-500 text-black font-bold px-6 py-2.5 rounded-xl hover:opacity-90 cursor-pointer text-sm";
                     closeBtn.innerText = "إنهاء ومغادرة";
-                    localState.currentUser.balance += 20.0;
-                    alert("انتهت المباراة! حصلت على مكافأة €20 مليون.");
-                    renderApp();
+                    currentUserData.balance += 20.0;
+                    saveUserData();
+                    alert("انتهت المباراة! تم إضافة مكافأة €20 مليون إلى رصيدك أونلاين.");
                 }
             }, 700);
         };
@@ -665,23 +724,21 @@
             }
         }
 
-        // --- 9 ULTIMATE FEATURES LOGIC ---
+        // --- 9 ULTIMATE FEATURES LOGIC (Fully Synced Online) ---
         window.spinDailyWheel = async function() {
             const prizes = [10, 25, 50, 15, 30];
             const won = prizes[Math.floor(Math.random() * prizes.length)];
-            localState.currentUser.balance += won;
-            await set(ref(db, 'users/' + localState.currentUser.uid), localState.currentUser);
-            renderApp();
-            alert(`🎉 مبروك! ربحت ${won} مليون يورو من عجلة الحظ!`);
+            currentUserData.balance += won;
+            await saveUserData();
+            alert(`🎉 مبروك أونلاين! ربحت ${won} مليون يورو من عجلة الحظ!`);
         };
 
         window.upgradeStadium = async function() {
-            const u = localState.currentUser;
+            const u = currentUserData;
             if (u.balance < 20.0) { alert("رصيدك لا يكفي لترقية الاستاد (€20M مطلوبة)."); return; }
             u.balance -= 20.0;
             u.stadiumLevel = (u.stadiumLevel || 1) + 1;
-            await set(ref(db, 'users/' + u.uid), u);
-            renderApp();
+            await saveUserData();
             alert(`🏟️ تمت ترقية الاستاد بنجاح إلى المستوى ${u.stadiumLevel}!`);
         };
 
@@ -691,10 +748,9 @@
             const keeper = ['left', 'center', 'right'][Math.floor(Math.random()*3)];
             const res = document.getElementById('penaltyResult');
             if (dir !== keeper) {
-                localState.currentUser.balance += 10.0;
-                await set(ref(db, 'users/' + localState.currentUser.uid), localState.currentUser);
-                renderApp();
-                res.innerHTML = `<span class="text-emerald-400">⚽ هدف رائع! ربحت +€10M!</span>`;
+                currentUserData.balance += 10.0;
+                await saveUserData();
+                res.innerHTML = `<span class="text-emerald-400">⚽ هدف رائع أونلاين! ربحت +€10M!</span>`;
                 playGoalSound(); speakArabic("هدف جميل من ركلة الجزاء.");
             } else {
                 res.innerHTML = `<span class="text-rose-400">❌ تصدى الحارس! هاردلك.</span>`;
@@ -702,8 +758,8 @@
             }
         };
 
-        window.openAuctionModal = function() { alert("قاعة المزايدات الحية: سيتم فتح المزايدات على الأساطير قريباً جداً!"); };
-        window.openChallengeWall = function() { startLiveMatch("ديربي التحدي السريع", "صقور العاصمة"); };
+        window.openAuctionModal = function() { alert("قاعة المزايدات الحية أونلاين: سيتم فتح المزايدات على الأساطير قريباً!"); };
+        window.openChallengeWall = function() { startLiveMatch("ديربي التحدي السريع أونلاين", "صقور العاصمة الافتراضية"); };
 
         window.triggerCrisisEvent = async function() {
             const crises = [
@@ -711,67 +767,56 @@
                 { title: "غرامة الانضباط!", desc: "عقوبة مالية مفروضة من الاتحاد.", cost: 10.0 }
             ];
             const c = crises[Math.floor(Math.random()*crises.length)];
-            const u = localState.currentUser;
-            if (confirm(`${c.title}\n${c.desc}\nهل تود دفع €${c.cost}M لاحتواء الأزمة؟`)) {
+            const u = currentUserData;
+            if (confirm(`${c.title}\n${c.desc}\nهل تود دفع €${c.cost}M لاحتواء الأزمة فوراً؟`)) {
                 if (u.balance < c.cost) { alert("رصيدك لا يكفي!"); return; }
                 u.balance -= c.cost;
-                await set(ref(db, 'users/' + u.uid), u);
-                renderApp();
-                alert("تم احتواء الأزمة بنجاح!");
+                await saveUserData();
+                alert("تم احتواء الأزمة بنجاح أونلاين!");
             }
         };
 
         window.openMysteryBox = async function() {
-            const u = localState.currentUser;
+            const u = currentUserData;
             if (u.balance < 10.0) { alert("تحتاج إلى €10M لفتح الصندوق!"); return; }
             u.balance -= 10.0;
             const reward = Math.random() > 0.5 ? 30.0 : 10.0;
             u.balance += reward;
-            await set(ref(db, 'users/' + u.uid), u);
-            renderApp();
-            alert(`📦 فتحت صندوق الحظ وربحت جائزة بقيمة €${reward} مليون!`);
+            await saveUserData();
+            alert(`📦 فتحت صندوق الحظ أونلاين وربحت جائزة بقيمة €${reward} مليون!`);
         };
 
         window.callSecretScout = async function() {
             const kids = [
-                { id: "w1", name: "بيدري الصاعد", pos: "CM", rating: 89, price: 20.0 },
-                { id: "w2", name: "لامين يامال", pos: "RW", rating: 90, price: 22.0 }
+                { id: "w1", name: "بيدري الصاعد", pos: "CM", rating: 89, price: 20.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" },
+                { id: "w2", name: "لامين يامال", pos: "RW", rating: 90, price: 22.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" }
             ];
             const kid = kids[Math.floor(Math.random()*kids.length)];
-            const u = localState.currentUser;
+            const u = currentUserData;
+            if (u.squad.some(p => p.id === kid.id)) {
+                alert("⚠️ الموهبة التي جلبها الكشاف موجودة لديك بالفعل!");
+                return;
+            }
             if (confirm(`⚡ الكشاف السري جلب موهبة: ${kid.name} (تقييم ${kid.rating})\nالسعر: €${kid.price}M\nتعاقد فورا؟`)) {
                 if (u.balance < kid.price) { alert("رصيدك لا يكفي!"); return; }
                 u.balance -= kid.price;
                 u.squad.push(kid);
-                await set(ref(db, 'users/' + u.uid), u);
-                renderApp();
-                alert(`تم التعاقد مع الموهبة ${kid.name}!`);
+                await saveUserData();
+                alert(`تم التعاقد مع الموهبة ${kid.name} وحفظها في تشكيلتك أونلاين!`);
             }
         };
 
         window.playSuspenseGamble = async function() {
-            const u = localState.currentUser;
+            const u = currentUserData;
             if (u.balance < 15.0) { alert("رصيدك لا يكفي للمقامرة (€15M مطلوبة)!"); return; }
             u.balance -= 15.0;
             if (Math.random() > 0.4) {
                 u.balance += 40.0;
-                alert("⚽ جووول في الدقيقة 90! فزت بـ €40 مليون!");
+                alert("⚽ جووول في الدقيقة 90! فزت بـ €40 مليون أونلاين!");
             } else {
                 alert("❌ ضاعت الفرصة وانتهت المباراة! خسرت مبلغ الرهان.");
             }
-            await set(ref(db, 'users/' + u.uid), u);
-            renderApp();
-        };
-
-        // Admin Panel Functions
-        window.openAdminPanel = function() { document.getElementById('adminModal').classList.remove('hidden'); };
-        window.closeAdminPanel = function() { document.getElementById('adminModal').classList.add('hidden'); };
-        window.adminPublishNews = function() {
-            const txt = document.getElementById('adminNewsInput').value.trim();
-            if (!txt) return;
-            document.getElementById('globalNewsTicker').innerText = txt;
-            alert("تم نشر الخبر العاجل بنجاح!");
-            closeAdminPanel();
+            await saveUserData();
         };
     </script>
 </body>
