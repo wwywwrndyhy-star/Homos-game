@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactix Royal - إمبراطورية التكتيك والأونلاين</title>
+    
+    <!-- PWA Manifest Inline -->
+    <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22Tactix%20Royal%22%2C%22short_name%22%3A%22TactixRoyal%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%230b0f19%22%7D">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #0b0f19; color: #f8fafc; user-select: none; }
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .pitch-bg { background: radial-gradient(circle, #14532d 0%, #052e16 100%); border: 2px solid #16a34a; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between max-w-md sm:max-w-xl mx-auto p-2 sm:p-4">
+
+    <!-- Firebase SDK Modular Import Setup -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, set, get, child, onValue, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCBEtbRajG95opDRkHbstnmt79a4v8lUX0",
+          authDomain: "xojs-4e0dc.firebaseapp.com",
+          databaseURL: "https://xojs-4e0dc-default-rtdb.firebaseio.com",
+          projectId: "xojs-4e0dc",
+          storageBucket: "xojs-4e0dc.firebasestorage.app",
+          messagingSenderId: "504484947768",
+          appId: "1:504484947768:web:09b3040669d558bc0ac3cd",
+          measurementId: "G-2BE5RYWLYZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        window.auth = auth;
+        window.db = db;
+        window.FB = { ref, set, get, child, onValue, push, update, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut };
+
+        // Global State & Auth Observer
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                window.currentUser = user;
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                await loadUserData(user.uid);
+                listenToOnlineMatches();
+                listenToGlobalChat();
+            } else {
+                window.currentUser = null;
+                document.getElementById('auth-screen').classList.remove('hidden');
+                document.getElementById('main-app').classList.add('hidden');
+            }
+        });
+    </script>
+
+    <!-- AUTH & REGISTRATION SCREEN -->
+    <div id="auth-screen" class="glass rounded-3xl p-6 shadow-2xl space-y-5 my-auto">
+        <div class="text-center space-y-2">
+            <h1 class="text-3xl font-black text-amber-400 tracking-wider">👑 Tactix Royal</h1>
+            <p class="text-xs text-slate-400">إمبراطورية كرة القدم والتحديات المالية المباشرة أونلاين</p>
+        </div>
+
+        <!-- Auth Tabs -->
+        <div class="flex bg-slate-950 p-1 rounded-xl text-xs font-bold text-center">
+            <button id="tab-login-btn" onclick="toggleAuthTab('login')" class="w-1/2 py-2 rounded-lg bg-amber-500 text-slate-950">تسجيل الدخول</button>
+            <button id="tab-register-btn" onclick="toggleAuthTab('register')" class="w-1/2 py-2 rounded-lg text-slate-400">حساب جديد</button>
+        </div>
+
+        <!-- Form Inputs -->
+        <form id="auth-form" onsubmit="handleAuth(event)" class="space-y-3">
+            <input type="email" id="auth-email" placeholder="البريد الإلكتروني" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs focus:border-amber-400 outline-none">
+            <input type="password" id="auth-password" placeholder="كلمة السر" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs focus:border-amber-400 outline-none">
+            
+            <!-- Extra Registration Fields -->
+            <div id="reg-fields" class="space-y-3 hidden">
+                <input type="text" id="auth-manager-name" placeholder="اسم المدرب (مثال: الكابتن علي)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs focus:border-amber-400 outline-none">
+                <input type="text" id="auth-club-name" placeholder="اسم النادي (مثال: الملكي FC)" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs focus:border-amber-400 outline-none">
+                <select id="auth-club-badge" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs focus:border-amber-400 outline-none">
+                    <option value="🦁">🦁 شير المفترس</option>
+                    <option value="👑">👑 التاج الملكي</option>
+                    <option value="🦅">🦅 النسر الذهبي</option>
+                    <option value="⚔️">⚔️ السيوف الفولاذية</option>
+                    <option value="🔥">🔥 المارد الناري</option>
+                </select>
+            </div>
+
+            <button type="submit" id="auth-submit-btn" class="w-full py-3.5 gold-gradient font-black text-slate-950 rounded-xl text-xs shadow-lg active:scale-95 transition">
+                دخول الحساب
+            </button>
+        </form>
+    </div>
+
+    <!-- MAIN GAME APPLICATION CONTAINER -->
+    <div id="main-app" class="hidden flex-1 flex flex-col justify-between space-y-3">
+        
+        <!-- Header Profile Bar -->
+        <header class="glass p-3 rounded-2xl flex justify-between items-center sticky top-1 z-50">
+            <div class="flex items-center gap-2.5">
+                <div id="header-badge" class="w-10 h-10 rounded-xl bg-slate-800 border border-amber-500/40 flex items-center justify-center text-xl shadow">🦁</div>
+                <div>
+                    <h2 id="header-club-name" class="text-xs font-black text-white">...</h2>
+                    <span id="header-manager-name" class="text-[10px] text-amber-400 font-bold block">المدرب: ...</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <div class="bg-slate-950 px-3 py-1 rounded-xl border border-slate-800 text-right">
+                    <span class="text-[9px] text-slate-400 block">الميزانية</span>
+                    <span id="header-balance" class="text-xs font-extrabold text-emerald-400">€0.0M</span>
+                </div>
+                <button onclick="window.FB.signOut(window.auth)" class="bg-red-500/20 text-red-400 p-2 rounded-xl border border-red-500/30 text-xs">🚪</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs Bar -->
+        <nav class="flex bg-slate-950/90 p-1 rounded-2xl border border-slate-800 justify-between text-[11px] font-bold">
+            <button onclick="switchTab('squad')" id="nav-squad" class="flex-1 py-2 rounded-xl bg-amber-500 text-slate-950">التشكيلة</button>
+            <button onclick="switchTab('market')" id="nav-market" class="flex-1 py-2 rounded-xl text-slate-400">السوق</button>
+            <button onclick="switchTab('challenge')" id="nav-challenge" class="flex-1 py-2 rounded-xl text-slate-400">تحدي 50M ⚔️</button>
+            <button onclick="switchTab('chat')" id="nav-chat" class="flex-1 py-2 rounded-xl text-slate-400">الشات</button>
+        </nav>
+
+        <!-- DYNAMIC CONTENT VIEW -->
+        <main id="tab-content" class="flex-1 space-y-3">
+            <!-- Rendered by JS -->
+        </main>
+    </div>
+
+    <!-- MAIN GAME LOGIC -->
+    <script>
+        let currentAuthMode = 'login';
+        let userProfile = null;
+        let activeTab = 'squad';
+
+        // Master Player Pool Generator (Instant Sample Pool for Market)
+        const SAMPLE_PLAYERS = [
+            { id: 'p1', name: 'محمد صلاح', pos: 'RW', rating: 90, price: 85.0, wage: 3.5, photo: '🇪🇬' },
+            { id: 'p2', name: 'كيليان مبابي', pos: 'ST', rating: 92, price: 110.0, wage: 4.5, photo: '🇫🇷' },
+            { id: 'p3', name: 'جود بلينغهام', pos: 'CM', rating: 88, price: 75.0, wage: 2.8, photo: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
+            { id: 'p4', name: 'فيرجيل فانديك', pos: 'CB', rating: 89, price: 65.0, wage: 2.5, photo: '🇳🇱' },
+            { id: 'p5', name: 'ياسين بونو', pos: 'GK', rating: 86, price: 40.0, wage: 1.8, photo: '🇲🇦' },
+            { id: 'p6', name: 'فينيسيوس جونيور', pos: 'LW', rating: 91, price: 95.0, wage: 3.8, photo: '🇧🇷' },
+            { id: 'p7', name: 'أشرف حكيمي', pos: 'RB', rating: 87, price: 55.0, wage: 2.2, photo: '🇲🇦' },
+            { id: 'p8', name: 'عمر مرموش', pos: 'ST', rating: 84, price: 35.0, wage: 1.5, photo: '🇪🇬' }
+        ];
+
+        function toggleAuthTab(mode) {
+            currentAuthMode = mode;
+            const regFields = document.getElementById('reg-fields');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const loginBtn = document.getElementById('tab-login-btn');
+            const regBtn = document.getElementById('tab-register-btn');
+
+            if (mode === 'register') {
+                regFields.classList.remove('hidden');
+                submitBtn.innerText = 'تأسيس النادي والحساب';
+                regBtn.className = 'w-1/2 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold';
+                loginBtn.className = 'w-1/2 py-2 rounded-lg text-slate-400 font-bold';
+            } else {
+                regFields.classList.add('hidden');
+                submitBtn.innerText = 'دخول الحساب';
+                loginBtn.className = 'w-1/2 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold';
+                regBtn.className = 'w-1/2 py-2 rounded-lg text-slate-400 font-bold';
+            }
+        }
+
+        async function handleAuth(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+
+            try {
+                if (currentAuthMode === 'register') {
+                    const managerName = document.getElementById('auth-manager-name').value || 'كابتن';
+                    const clubName = document.getElementById('auth-club-name').value || 'الفرسان FC';
+                    const badge = document.getElementById('auth-club-badge').value;
+
+                    const res = await window.FB.createUserWithEmailAndPassword(window.auth, email, password);
+                    const uid = res.user.uid;
+
+                    // Initial New Manager Profile Data
+                    const initialProfile = {
+                        uid,
+                        email,
+                        managerName,
+                        clubName,
+                        badge,
+                        balance: 150.0, // Initial Capital
+                        squad: [SAMPLE_PLAYERS[0], SAMPLE_PLAYERS[4]], // 2 Starter Star Players
+                        createdAt: Date.now()
+                    };
+
+                    await window.FB.set(window.FB.ref(window.db, 'users/' + uid), initialProfile);
+                } else {
+                    await window.FB.signInWithEmailAndPassword(window.auth, email, password);
+                }
+            } catch(err) {
+                alert("⚠️ خطأ في التسجيل أو الدخول: " + err.message);
+            }
+        }
+
+        async function loadUserData(uid) {
+            const userRef = window.FB.ref(window.db, 'users/' + uid);
+            window.FB.onValue(userRef, (snapshot) => {
+                userProfile = snapshot.val();
+                if (userProfile) {
+                    document.getElementById('header-club-name').innerText = userProfile.clubName;
+                    document.getElementById('header-manager-name').innerText = `المدرب: ${userProfile.managerName}`;
+                    document.getElementById('header-badge').innerText = userProfile.badge;
+                    document.getElementById('header-balance').innerText = `€${userProfile.balance.toFixed(1)}M`;
+                    renderTab();
+                }
+            });
+        }
+
+        function switchTab(tab) {
+            activeTab = tab;
+            ['squad', 'market', 'challenge', 'chat'].forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                if (t === tab) btn.className = 'flex-1 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold shadow';
+                else btn.className = 'flex-1 py-2 rounded-xl text-slate-400 font-bold';
+            });
+            renderTab();
+        }
+
+        function renderTab() {
+            const container = document.getElementById('tab-content');
+            if (!userProfile) return;
+
+            if (activeTab === 'squad') {
+                const power = userProfile.squad.length ? Math.round(userProfile.squad.reduce((a, b) => a + b.rating, 0) / userProfile.squad.length) : 0;
+                container.innerHTML = `
+                    <div class="glass p-4 rounded-2xl space-y-3">
+                        <div class="flex justify-between items-center bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+                            <div>
+                                <h3 class="text-sm font-black text-white">${userProfile.clubName}</h3>
+                                <span class="text-[10px] text-emerald-400 font-bold">عدد اللاعبين: ${userProfile.squad.length}</span>
+                            </div>
+                            <div class="text-center bg-amber-500/10 px-3 py-1 rounded-xl border border-amber-500/30">
+                                <span class="text-[9px] text-amber-400 block font-bold">قوة الفريق</span>
+                                <span class="text-lg font-black text-amber-300">⚡${power}</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <h4 class="text-xs font-bold text-slate-400">قائمة اللاعبين بالحساب:</h4>
+                            ${userProfile.squad.map(p => `
+                                <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xl">${p.photo}</span>
+                                        <div>
+                                            <h5 class="text-xs font-bold text-white">${p.name} (${p.pos})</h5>
+                                            <span class="text-[10px] text-slate-400">طاقة: ${p.rating} | راتب: €${p.wage}M</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-bold text-emerald-400">€${p.price}M</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else if (activeTab === 'market') {
+                container.innerHTML = `
+                    <div class="space-y-2">
+                        <h3 class="text-xs font-bold text-slate-400 px-1">سوق الانتقالات أونلاين:</h3>
+                        ${SAMPLE_PLAYERS.map(p => {
+                            const owned = userProfile.squad.some(sp => sp.id === p.id);
+                            return `
+                                <div class="glass p-2.5 rounded-xl flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-2xl">${p.photo}</span>
+                                        <div>
+                                            <h4 class="text-xs font-black text-white">${p.name}</h4>
+                                            <span class="text-[9px] bg-slate-800 text-amber-300 px-1.5 py-0.5 rounded">${p.pos} • ⚡${p.rating}</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-bold text-amber-400">€${p.price}M</span>
+                                        ${owned ? `
+                                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-lg">مملوك</span>
+                                        ` : `
+                                            <button onclick="buyPlayer('${p.id}')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs px-3 py-1 rounded-lg">شراء</button>
+                                        `}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else if (activeTab === 'challenge') {
+                container.innerHTML = `
+                    <div class="glass p-4 rounded-2xl space-y-4">
+                        <div class="text-center bg-gradient-to-r from-red-950 via-slate-900 to-red-950 p-3 rounded-xl border border-red-500/30">
+                            <h3 class="text-sm font-black text-red-400">⚔️ تحدي الـ 50M المباشر (High Stakes)</h3>
+                            <p class="text-[10px] text-slate-300 mt-1">يدخل كل مدرب بـ €50M يورو. الفائز يحصل على €90M و 10M عمولة اللعبة!</p>
+                        </div>
+
+                        <button onclick="createHighStakeChallenge()" class="w-full py-3 bg-red-600 hover:bg-red-700 font-black text-white rounded-xl text-xs shadow-lg">
+                            ➕ إنشاء غرفه تحدي بـ €50M
+                        </button>
+
+                        <div class="space-y-2">
+                            <h4 class="text-xs font-bold text-slate-400">التحديات المتاحة حالياً أونلاين:</h4>
+                            <div id="challenges-list" class="space-y-2">جاري التحميل...</div>
+                        </div>
+                    </div>
+                `;
+            } else if (activeTab === 'chat') {
+                container.innerHTML = `
+                    <div class="glass p-3 rounded-2xl flex flex-col h-80 justify-between">
+                        <div id="chat-messages" class="overflow-y-auto space-y-2 flex-1 p-1">جاري تحميل الشات...</div>
+                        <div class="flex gap-2 mt-2">
+                            <input type="text" id="chat-input" placeholder="اكتب رسالة استفزاز كروية..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs outline-none">
+                            <button onclick="sendChatMessage()" class="bg-amber-500 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs">إرسال</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // --- MARKET BUY PLAYER ---
+        async function buyPlayer(playerId) {
+            const player = SAMPLE_PLAYERS.find(p => p.id === playerId);
+            if (!player) return;
+            if (userProfile.balance < player.price) {
+                alert("⚠️ الميزانية غير كافية للشراء!");
+                return;
+            }
+
+            userProfile.balance -= player.price;
+            userProfile.squad.push(player);
+
+            await window.FB.update(window.FB.ref(window.db, 'users/' + userProfile.uid), {
+                balance: userProfile.balance,
+                squad: userProfile.squad
+            });
+
+            alert(`✅ تم الشراء بنجاح! انضم ${player.name} لناديك.`);
+        }
+
+        // --- HIGH STAKES CHALLENGE SYSTEM ---
+        async function createHighStakeChallenge() {
+            if (userProfile.balance < 50.0) {
+                alert("⚠️ لا تملك €50M في خزينتك لإنشاء التحدي!");
+                return;
+            }
+
+            // Deduct entry fee
+            userProfile.balance -= 50.0;
+            await window.FB.update(window.FB.ref(window.db, 'users/' + userProfile.uid), { balance: userProfile.balance });
+
+            const newMatchRef = window.FB.push(window.FB.ref(window.db, 'challenges'));
+            await window.FB.set(newMatchRef, {
+                hostUid: userProfile.uid,
+                hostClub: userProfile.clubName,
+                hostPower: Math.round(userProfile.squad.reduce((a, b) => a + b.rating, 0) / userProfile.squad.length),
+                guestUid: null,
+                guestClub: null,
+                status: 'waiting', // waiting, finished
+                winner: null
+            });
+        }
+
+        function listenToOnlineMatches() {
+            window.FB.onValue(window.FB.ref(window.db, 'challenges'), (snapshot) => {
+                const list = document.getElementById('challenges-list');
+                if (!list) return;
+
+                const matches = snapshot.val();
+                if (!matches) {
+                    list.innerHTML = '<p class="text-xs text-slate-500 text-center">لا توجد تحديات حالياً.</p>';
+                    return;
+                }
+
+                list.innerHTML = Object.keys(matches).map(id => {
+                    const m = matches[id];
+                    if (m.status === 'waiting') {
+                        return `
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                                <div>
+                                    <span class="text-xs font-bold text-white">${m.hostClub} (⚡${m.hostPower})</span>
+                                    <span class="text-[10px] text-amber-400 block">الرهان: €50M vs €50M</span>
+                                </div>
+                                ${m.hostUid !== userProfile.uid ? `
+                                    <button onclick="acceptChallenge('${id}', ${m.hostPower}, '${m.hostUid}')" class="bg-emerald-500 text-slate-950 font-black px-3 py-1 rounded-lg text-xs">قبول التحدي</button>
+                                ` : '<span class="text-[10px] text-slate-500">في الانتظار...</span>'}
+                            </div>
+                        `;
+                    }
+                    return '';
+                }).join('');
+            });
+        }
+
+        async function acceptChallenge(challengeId, hostPower, hostUid) {
+            if (userProfile.balance < 50.0) {
+                alert("⚠️ ليس لديك €50M للقبول!");
+                return;
+            }
+
+            // Deduct guest fee
+            userProfile.balance -= 50.0;
+            await window.FB.update(window.FB.ref(window.db, 'users/' + userProfile.uid), { balance: userProfile.balance });
+
+            const guestPower = Math.round(userProfile.squad.reduce((a, b) => a + b.rating, 0) / userProfile.squad.length);
+
+            // SIMULATE MATCH RESULT
+            const hostScore = Math.floor(Math.random() * 3) + (hostPower > guestPower ? 1 : 0);
+            const guestScore = Math.floor(Math.random() * 3) + (guestPower > hostPower ? 1 : 0);
+
+            let winnerUid = null;
+            if (hostScore > guestScore) winnerUid = hostUid;
+            else if (guestScore > hostScore) winnerUid = userProfile.uid;
+            else winnerUid = Math.random() > 0.5 ? hostUid : userProfile.uid; // Penalty Shootout
+
+            // Award Prize (€90M to winner)
+            const winnerRef = window.FB.ref(window.db, 'users/' + winnerUid + '/balance');
+            const winnerSnap = await window.FB.get(winnerRef);
+            const currentWinBalance = winnerSnap.val() || 0;
+            await window.FB.set(winnerRef, currentWinBalance + 90.0);
+
+            // Update Match State
+            await window.FB.update(window.FB.ref(window.db, 'challenges/' + challengeId), {
+                guestUid: userProfile.uid,
+                guestClub: userProfile.clubName,
+                status: 'finished',
+                score: `${hostScore} - ${guestScore}`,
+                winner: winnerUid
+            });
+
+            alert(`🏟️ انتهت المباراة بنتيجة (${hostScore} - ${guestScore})!\n${winnerUid === userProfile.uid ? '🎉 مبروك! فزت بـ €90M يورو!' : '💔 خسرت التحدي.'}`);
+        }
+
+        // --- GLOBAL CHAT SYSTEM ---
+        function listenToGlobalChat() {
+            window.FB.onValue(window.FB.ref(window.db, 'chat'), (snapshot) => {
+                const chatContainer = document.getElementById('chat-messages');
+                if (!chatContainer) return;
+
+                const messages = snapshot.val();
+                if (!messages) {
+                    chatContainer.innerHTML = '<p class="text-[10px] text-slate-500 text-center">لا توجد رسائل بعد.</p>';
+                    return;
+                }
+
+                chatContainer.innerHTML = Object.values(messages).map(m => `
+                    <div class="bg-slate-900/90 p-2 rounded-xl text-xs border border-slate-800">
+                        <span class="font-bold text-amber-400 text-[10px] block">${m.sender}:</span>
+                        <span class="text-slate-200">${m.text}</span>
+                    </div>
+                `).join('');
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            });
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const chatRef = window.FB.push(window.FB.ref(window.db, 'chat'));
+            await window.FB.set(chatRef, {
+                sender: `${userProfile.managerName} (${userProfile.clubName})`,
+                text,
+                time: Date.now()
+            });
+            input.value = '';
+        }
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('data:text/javascript;charset=utf-8,console.log("PWA Active");');
+            });
+        }
+    </script>
+</body>
+</html>
