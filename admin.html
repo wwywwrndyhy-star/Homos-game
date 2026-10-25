@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactix Royal - لوحة التحكم الإدارية الفائقة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #080c14; color: #f8fafc; }
+        .glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .gold-gradient { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8 max-w-5xl mx-auto space-y-6">
+
+    <!-- Header Panel -->
+    <header class="glass p-6 rounded-3xl flex justify-between items-center border-b border-amber-500/20 shadow-2xl">
+        <div>
+            <h1 class="text-2xl sm:text-3xl font-black text-amber-400">⚙️ لوحة الإدارة الفائقة (Tactix Admin)</h1>
+            <p class="text-xs text-slate-400 mt-1">رفع وتحديث بيانات اللاعبين والمدربين بالجملة عبر أكواد JSON السحابية</p>
+        </div>
+        <div class="bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-2xl text-right">
+            <span class="text-[10px] text-amber-300 font-bold block">حالة قاعدة البيانات</span>
+            <span id="db-status" class="text-xs font-black text-emerald-400">● متصل أونلاين</span>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="flex bg-slate-950 p-1.5 rounded-2xl border border-slate-800 gap-2">
+        <button onclick="switchTab('players')" id="tab-players-btn" class="flex-1 py-3 rounded-xl bg-amber-500 text-slate-950 font-black text-xs transition">⚽ رفع اللاعبين (JSON)</button>
+        <button onclick="switchTab('managers')" id="tab-managers-btn" class="flex-1 py-3 rounded-xl text-slate-400 font-bold text-xs transition">👔 رفع المدربين (JSON)</button>
+        <button onclick="switchTab('news')" id="tab-news-btn" class="flex-1 py-3 rounded-xl text-slate-400 font-bold text-xs transition">📢 بث الأخبار والإشعارات</button>
+    </div>
+
+    <!-- MAIN PANELS CONTAINER -->
+    <main class="space-y-6">
+
+        <!-- 1. BULK PLAYERS UPLOAD PANEL -->
+        <section id="panel-players" class="glass p-6 rounded-3xl space-y-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-base font-black text-white">📥 رفع اللاعبين بالجملة (Bulk Players Import)</h2>
+                    <p class="text-xs text-slate-400">الصق مصفوفة JSON تحتوي على بيانات اللاعبين مع روابط صورهم أو الإيموجي.</p>
+                </div>
+                <button onclick="loadSamplePlayersJSON()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-xl border border-slate-700">📋 إضافة نموذج تجريبي</button>
+            </div>
+
+            <textarea id="json-players-input" rows="10" placeholder='[
+  {
+    "id": "p_101",
+    "name": "محمد صلاح",
+    "pos": "RW",
+    "rating": 90,
+    "price": 85.0,
+    "wage": 3.5,
+    "photo": "https://cdn.example.com/salah.png"
+  }
+]' class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs font-mono text-emerald-400 focus:border-amber-400 outline-none leading-relaxed"></textarea>
+
+            <button onclick="uploadPlayersJSON()" class="w-full py-4 gold-gradient font-black text-slate-950 rounded-2xl text-xs shadow-lg hover:opacity-95 active:scale-95 transition flex items-center justify-center gap-2">
+                <span>🚀 رفع واعتماد اللاعبين أونلاين فوراً</span>
+            </button>
+        </section>
+
+        <!-- 2. BULK MANAGERS UPLOAD PANEL -->
+        <section id="panel-managers" class="glass p-6 rounded-3xl space-y-4 hidden">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-base font-black text-white">👔 رفع المدربين والتكتيكات (Bulk Managers Import)</h2>
+                    <p class="text-xs text-slate-400">الصق مصفوفة JSON تحتوي على بيانات المدربين، تكتيكهم، وبونص القوة.</p>
+                </div>
+                <button onclick="loadSampleManagersJSON()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1.5 rounded-xl border border-slate-700">📋 إضافة نموذج تجريبي</button>
+            </div>
+
+            <textarea id="json-managers-input" rows="10" placeholder='[
+  {
+    "id": "m_01",
+    "name": "بيب جوارديولا",
+    "tactic": "Tiki-Taka & Possession",
+    "boost": 5,
+    "salary": 6.0,
+    "photo": "https://cdn.example.com/pep.png"
+  }
+]' class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs font-mono text-emerald-400 focus:border-amber-400 outline-none leading-relaxed"></textarea>
+
+            <button onclick="uploadManagersJSON()" class="w-full py-4 gold-gradient font-black text-slate-950 rounded-2xl text-xs shadow-lg hover:opacity-95 active:scale-95 transition flex items-center justify-center gap-2">
+                <span>🚀 رفع واعتماد المدربين أونلاين فوراً</span>
+            </button>
+        </section>
+
+        <!-- 3. BROADCAST NEWS PANEL -->
+        <section id="panel-news" class="glass p-6 rounded-3xl space-y-4 hidden">
+            <div>
+                <h2 class="text-base font-black text-amber-400">📢 إرسال خبر عاجل لكل المستخدمين</h2>
+                <p class="text-xs text-slate-400">يظهر الخبر فوراً في الشاشة الرئيسية لجميع المدربين والمتواجدين أونلاين.</p>
+            </div>
+
+            <textarea id="news-text-input" rows="4" placeholder="اكتب نص الخبر العاجل هنا (مثال: عاجل: افتتاح سوق الانتقالات الاستثنائي بخصم 20% على الأسعار!)..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs text-white focus:border-amber-400 outline-none"></textarea>
+
+            <button onclick="broadcastNews()" class="w-full py-3.5 bg-red-600 hover:bg-red-700 font-black text-white rounded-2xl text-xs shadow-lg active:scale-95 transition">
+                📡 بث الخبر العاجل الآن
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Firebase SDK Setup -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Your exact Firebase Project Credentials
+        const firebaseConfig = {
+          apiKey: "AIzaSyCBEtbRajG95opDRkHbstnmt79a4v8lUX0",
+          authDomain: "xojs-4e0dc.firebaseapp.com",
+          databaseURL: "https://xojs-4e0dc-default-rtdb.firebaseio.com",
+          projectId: "xojs-4e0dc",
+          storageBucket: "xojs-4e0dc.firebasestorage.app",
+          messagingSenderId: "504484947768",
+          appId: "1:504484947768:web:09b3040669d558bc0ac3cd",
+          measurementId: "G-2BE5RYWLYZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        window.db = db;
+        window.FB = { ref, set, push, update };
+    </script>
+
+    <!-- Admin Panel Operations -->
+    <script>
+        function switchTab(tab) {
+            ['players', 'managers', 'news'].forEach(t => {
+                document.getElementById(`panel-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}-btn`).className = 'flex-1 py-3 rounded-xl text-slate-400 font-bold text-xs transition';
+            });
+
+            document.getElementById(`panel-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}-btn`).className = 'flex-1 py-3 rounded-xl bg-amber-500 text-slate-950 font-black text-xs transition shadow';
+        }
+
+        // --- BULK UPLOAD PLAYERS ---
+        async function uploadPlayersJSON() {
+            const jsonText = document.getElementById('json-players-input').value.trim();
+            if (!jsonText) return alert("⚠️ يرجى لصق كود الـ JSON أولاً!");
+
+            try {
+                const playersArray = JSON.parse(jsonText);
+                if (!Array.isArray(playersArray)) return alert("⚠️ يجب أن يكون الكود عبارة عن مصفوفة Array تحتوي على كروت اللاعبين!");
+
+                // Upload array directly to Firebase Realtime DB
+                await window.FB.set(window.FB.ref(window.db, 'market_players'), playersArray);
+                alert(`✅ تم رفع واعتماد ${playersArray.length} لاعب أونلاين بنجاح لقاعدة البيانات!`);
+            } catch (err) {
+                alert("❌ خطأ في تنسيق كود الـ JSON:\n" + err.message);
+            }
+        }
+
+        // --- BULK UPLOAD MANAGERS ---
+        async function uploadManagersJSON() {
+            const jsonText = document.getElementById('json-managers-input').value.trim();
+            if (!jsonText) return alert("⚠️ يرجى لصق كود الـ JSON أولاً!");
+
+            try {
+                const managersArray = JSON.parse(jsonText);
+                if (!Array.isArray(managersArray)) return alert("⚠️ يجب أن يكون الكود عبارة عن مصفوفة Array تحتوي على بيانات المدربين!");
+
+                await window.FB.set(window.FB.ref(window.db, 'market_managers'), managersArray);
+                alert(`✅ تم رفع واعتماد ${managersArray.length} مدرب أونلاين بنجاح!`);
+            } catch (err) {
+                alert("❌ خطأ في تنسيق كود الـ JSON:\n" + err.message);
+            }
+        }
+
+        // --- BROADCAST NEWS ---
+        async function broadcastNews() {
+            const text = document.getElementById('news-text-input').value.trim();
+            if (!text) return alert("⚠️ اكتب نص الخبر أولاً!");
+
+            await window.FB.set(window.FB.ref(window.db, 'global_news'), {
+                message: text,
+                timestamp: Date.now()
+            });
+
+            alert("📢 تم بث الخبر العاجل لكل مستخدمي اللعبة أونلاين!");
+            document.getElementById('news-text-input').value = '';
+        }
+
+        // --- SAMPLES GENERATORS ---
+        function loadSamplePlayersJSON() {
+            const sample = [
+                { id: "p1", name: "محمد صلاح", pos: "RW", rating: 90, price: 85.0, wage: 3.5, photo: "🇪🇬" },
+                { id: "p2", name: "كيليان مبابي", pos: "ST", rating: 92, price: 110.0, wage: 4.5, photo: "🇫🇷" },
+                { id: "p3", name: "جود بلينغهام", pos: "CM", rating: 88, price: 75.0, wage: 2.8, photo: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+                { id: "p4", name: "فيرجيل فانديك", pos: "CB", rating: 89, price: 65.0, wage: 2.5, photo: "🇳🇱" },
+                { id: "p5", name: "ياسين بونو", pos: "GK", rating: 86, price: 40.0, wage: 1.8, photo: "🇲🇦" }
+            ];
+            document.getElementById('json-players-input').value = JSON.stringify(sample, null, 2);
+        }
+
+        function loadSampleManagersJSON() {
+            const sample = [
+                { id: "m1", name: "بيب جوارديولا", tactic: "Tiki-Taka & Possession", boost: 5, salary: 6.0, photo: "🇪🇸" },
+                { id: "m2", name: "كارلو أنشيلوتي", tactic: "Counter-Attack & Calmness", boost: 4, salary: 5.5, photo: "🇮🇹" },
+                { id: "m3", name: "يورغن كلوب", tactic: "Gegenpressing", boost: 5, salary: 5.8, photo: "🇩🇪" }
+            ];
+            document.getElementById('json-managers-input').value = JSON.stringify(sample, null, 2);
+        }
+    </script>
+</body>
+</html>
