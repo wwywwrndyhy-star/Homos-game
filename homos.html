@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تكتكس رويال | Tactix Royal - التطبيق الأونلاين الشامل</title>
+    <title>تكتكس رويال | Tactix Royal - طراز مبابي جيمز الأونلاين</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Cairo -->
@@ -17,7 +17,7 @@
                     fontFamily: { cairo: ['Cairo', 'sans-serif'] },
                     colors: {
                         darkBg: '#090d16',
-                        glassBg: 'rgba(17, 24, 39, 0.8)',
+                        glassBg: 'rgba(17, 24, 39, 0.85)',
                         glassBorder: 'rgba(255, 255, 255, 0.08)',
                         accentGold: '#f59e0b',
                     }
@@ -27,9 +27,10 @@
     </script>
     <style>
         body { font-family: 'Cairo', sans-serif; background-color: #090d16; color: #f3f4f6; overflow-x: hidden; }
-        .glass-panel { background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
+        .glass-panel { background: rgba(17, 24, 39, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.3s ease; }
         .glass-card:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(245, 158, 11, 0.4); transform: translateY(-3px); }
+        .fut-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 2px solid #f59e0b; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2); }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #090d16; }
         ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
@@ -49,7 +50,7 @@
                     <i class="fa-solid fa-crown"></i>
                 </div>
                 <h1 class="text-3xl font-black text-amber-400">Tactix Royal</h1>
-                <p class="text-xs text-gray-400 mt-1">عالم إدارة كرة القدم الأسطوري أونلاين</p>
+                <p class="text-xs text-gray-400 mt-1">عالم أساطير كرة القدم والباكجات (Mbappe Games Style)</p>
             </div>
 
             <!-- Tabs -->
@@ -115,7 +116,7 @@
         <!-- FLASH NEWS TICKER -->
         <div class="bg-amber-500/10 border-b border-amber-500/20 py-1.5 px-4 text-xs text-amber-300 flex items-center gap-3 overflow-hidden whitespace-nowrap">
             <span class="bg-amber-500 text-black font-bold px-2 py-0.5 rounded text-[10px] uppercase">عاجل</span>
-            <div class="animate-marquee">مرحباً بك في موسم تكتكس رويال أونلاين! استعد للمنافسة على الكأس الكبرى وسوق الانتقالات المشتعل.</div>
+            <div class="animate-marquee">مرحباً بك في عالم مبابي جيمز وتكتكس رويال أونلاين! افتح الباكجات الأسطورية وابنِ تشكيلة الأحلام الآن.</div>
         </div>
 
         <!-- CONTENT CONTAINER -->
@@ -125,8 +126,8 @@
             <div id="tab-squad" class="space-y-6 tab-content">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 glass-panel p-5 rounded-2xl">
                     <div>
-                        <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-people-group"></i> تشكيلة الفريق الأساسية</h2>
-                        <p class="text-xs text-gray-400">نظم خطتك وتكتيكك لتحقيق الفوز في المباريات.</p>
+                        <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-shield-cat"></i> تشكيلة أساطير الفريق</h2>
+                        <p class="text-xs text-gray-400">بطاقات FUT الخاصة بناديك والجاهزة لخوض المباريات الكبرى.</p>
                     </div>
                     <div class="flex gap-3">
                         <div class="text-center px-4 py-2 rounded-xl glass-card">
@@ -138,35 +139,59 @@
 
                 <div class="glass-panel p-6 rounded-2xl relative overflow-hidden bg-gradient-to-b from-emerald-950/40 via-emerald-900/20 to-darkBg border-emerald-500/20">
                     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
-                    <div id="squadPlayersList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10"></div>
+                    <div id="squadPlayersList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative z-10"></div>
                 </div>
             </div>
 
-            <!-- TAB 2: MARKET (سوق اللاعبين) -->
-            <div id="tab-market" class="space-y-6 tab-content hidden">
-                <div class="glass-panel p-5 rounded-2xl flex justify-between items-center">
-                    <div>
-                        <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-store"></i> سوق اللاعبين العالمي</h2>
-                        <p class="text-xs text-gray-400">تعاقد مع أفضل نجوم العالم لدعم صفوفك (لا يمكن شراء نفس اللاعب مرتين).</p>
+            <!-- TAB 2: PACKS (فتح الباكجات 📦 - خاص بأسلوب مبابي جيمز) -->
+            <div id="tab-packs" class="space-y-6 tab-content hidden">
+                <div class="glass-panel p-5 rounded-2xl text-center space-y-2">
+                    <h2 class="text-2xl font-black text-amber-400"><i class="fa-solid fa-box-open"></i> متجر الباكجات الأسطورية (Pack Opener)</h2>
+                    <p class="text-xs text-gray-400">اختبر حظك وافتح الباكجات لاصطياد أندر نجوم العالم وانضمامهم لتشكيلتك مباشرة!</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="fut-card p-6 rounded-3xl text-center space-y-4">
+                        <div class="text-4xl text-amber-400"><i class="fa-solid fa-cube"></i></div>
+                        <h3 class="font-extrabold text-lg text-white">باكج النجوم العادي</h3>
+                        <p class="text-xs text-gray-300">يحتوي على لاعبين بتقييمات من 85 إلى 90.</p>
+                        <span class="block text-amber-400 font-bold">التكلفة: €10.0M</span>
+                        <button onclick="openPack('normal')" class="w-full bg-amber-500 text-black font-extrabold py-3 rounded-xl hover:opacity-90 transition">فتح الباكج (€10M)</button>
                     </div>
+
+                    <div class="fut-card p-6 rounded-3xl text-center space-y-4 border-2 border-purple-500">
+                        <div class="text-4xl text-purple-400"><i class="fa-solid fa-gem"></i></div>
+                        <h3 class="font-extrabold text-lg text-white">باكج الأساطير الخارق</h3>
+                        <p class="text-xs text-gray-300">يحتوي على نجوم أسطوريين خارقين بتقييمات 91+.</p>
+                        <span class="block text-purple-400 font-bold">التكلفة: €25.0M</span>
+                        <button onclick="openPack('legend')" class="w-full bg-purple-600 text-white font-extrabold py-3 rounded-xl hover:opacity-90 transition">فتح باكج الأساطير (€25M)</button>
+                    </div>
+
+                    <div class="fut-card p-6 rounded-3xl text-center space-y-4 border-2 border-rose-500">
+                        <div class="text-4xl text-rose-400"><i class="fa-solid fa-bolt"></i></div>
+                        <h3 class="font-extrabold text-lg text-white">باكج مبابي الذهبي (Mbappe Pack)</h3>
+                        <p class="text-xs text-gray-300">فرصة ذهبية للحصول على كيليان مبابي أو أساطير 94+.</p>
+                        <span class="block text-rose-400 font-bold">التكلفة: €50.0M</span>
+                        <button onclick="openPack('mbappe')" class="w-full bg-rose-600 text-white font-extrabold py-3 rounded-xl hover:opacity-90 transition">فتح باكج مبابي (€50M)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: MARKET (سوق الانتقالات) -->
+            <div id="tab-market" class="space-y-6 tab-content hidden">
+                <div class="glass-panel p-5 rounded-2xl">
+                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-store"></i> سوق الانتقالات المباشر</h2>
+                    <p class="text-xs text-gray-400">تعاقد مع النجوم مباشرة (لا يمكن شراء نفس اللاعب مرتين).</p>
                 </div>
                 <div id="marketPlayersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
             </div>
 
-            <!-- TAB 3: MANAGERS (المدربين) -->
-            <div id="tab-managers" class="space-y-6 tab-content hidden">
-                <div class="glass-panel p-5 rounded-2xl">
-                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> نخبة المدربين العالميين</h2>
-                </div>
-                <div id="managersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-            </div>
-
-            <!-- TAB 4: ROOMS (غرف التحدي) -->
+            <!-- TAB 4: ROOMS (غرف التحدي 1 ضد 1) -->
             <div id="tab-rooms" class="space-y-6 tab-content hidden">
                 <div class="glass-panel p-5 rounded-2xl flex justify-between items-center">
                     <div>
-                        <h2 class="text-xl font-black text-amber-400"><i class="fa-solid fa-key"></i> غرف المباريات المباشرة 1 ضد 1 (أونلاين)</h2>
-                        <p class="text-xs text-gray-400">أنشئ غرفة خاصة برمز سري وتحدى أصدقائك.</p>
+                        <h2 class="text-xl font-black text-amber-400"><i class="fa-solid fa-key"></i> غرف المباريات المباشرة أونلاين</h2>
+                        <p class="text-xs text-gray-400">أنشئ غرفة برمز سري وتحدى أصدقائك.</p>
                     </div>
                     <button onclick="createPrivateRoom()" class="bg-amber-500 text-black font-extrabold px-5 py-2.5 rounded-xl text-sm shadow-lg">إنشاء غرفة</button>
                 </div>
@@ -180,100 +205,82 @@
                 <div id="activeRoomsList" class="space-y-2"></div>
             </div>
 
-            <!-- TAB 5: CUP (الكأس الأونلاين) -->
+            <!-- TAB 5: CUP (بطولة الكأس الملكي) -->
             <div id="tab-cup" class="space-y-6 tab-content hidden">
                 <div class="glass-panel p-5 rounded-2xl text-center space-y-3">
-                    <span class="bg-amber-500/20 text-amber-400 px-4 py-1.5 rounded-full text-xs font-black border border-amber-500/30">بطولة الكأس الملكي (16 فريق) أونلاين</span>
+                    <span class="bg-amber-500/20 text-amber-400 px-4 py-1.5 rounded-full text-xs font-black border border-amber-500/30">بطولة الكأس الملكي (16 فريق أونلاين)</span>
                     <h2 class="text-2xl font-black text-white">بطولة خروج المغلوب الكبرى</h2>
                     <button onclick="registerForCup()" id="cupRegisterBtn" class="bg-amber-500 text-black font-black px-8 py-3 rounded-xl shadow-lg">تسجيل النادي في البطولة</button>
                 </div>
                 <div class="glass-panel p-6 rounded-2xl space-y-4">
                     <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-amber-400">حالة المشاركين في الكأس (مزامنة حية)</h3>
+                        <h3 class="font-bold text-amber-400">حالة المشاركين في الكأس</h3>
                         <span id="cupParticipantsCount" class="bg-amber-500/20 text-amber-300 font-bold px-3 py-1 rounded-lg text-xs">0 / 16 لاعب</span>
                     </div>
                     <div id="cupBracketList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3"></div>
                 </div>
             </div>
 
-            <!-- TAB 6: 👑 9 ULTIMATE FEATURES (مركز التحديات والأزمات والحظ) -->
+            <!-- TAB 6: CHALLENGES HUB (مركز التحديات والحظ) -->
             <div id="tab-features" class="space-y-6 tab-content hidden">
                 <div class="glass-panel p-5 rounded-2xl">
-                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-bolt"></i> مركز التحديات والمميزات الشامل (أونلاين)</h2>
-                    <p class="text-xs text-gray-400">عجلة الحظ، تطوير الاستاد، ركلات الجزاء، المزايدات، الديربي، الأزمات الطارئة، صناديق الحظ، الكشاف السري، ومقامرة الدقيقة 90!</p>
+                    <h2 class="text-xl font-black text-amber-400 flex items-center gap-2"><i class="fa-solid fa-bolt"></i> مركز التحديات والمميزات الإدمانية</h2>
+                    <p class="text-xs text-gray-400">عجلة الحظ، تطوير الاستاد، ركلات الجزاء، المزايدات، الديربي، الأزمات، الكشاف السري، ومقامرة الدقيقة 90!</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- 1. Daily Spin -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center">
                         <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-dharmachakra"></i></div>
                         <h3 class="font-bold text-white text-lg">عجلة الحظ اليومية</h3>
-                        <p class="text-xs text-gray-400">تدوير يومي لربح ملايين اليوروهات فوراً.</p>
                         <button onclick="spinDailyWheel()" class="w-full bg-amber-500 text-black font-bold py-2.5 rounded-xl text-sm">تدوير العجلة</button>
                     </div>
 
-                    <!-- 2. Stadium Upgrade -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center">
                         <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-stadium"></i></div>
                         <h3 class="font-bold text-white text-lg">تطوير الاستاد والدخل</h3>
-                        <p class="text-xs text-gray-400">زيادة سعة المدرجات والدخل المالي الثابت.</p>
-                        <div class="text-xs text-gray-300">مستوى الاستاد: <span id="stadiumLevel" class="text-amber-400 font-bold">المستوى 1</span></div>
+                        <div class="text-xs text-gray-300">المستوى: <span id="stadiumLevel" class="text-amber-400 font-bold">1</span></div>
                         <button onclick="upgradeStadium()" class="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl text-sm">ترقية الاستاد (€20M)</button>
                     </div>
 
-                    <!-- 3. Penalty Mini-Game -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center">
                         <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-futbol"></i></div>
                         <h3 class="font-bold text-white text-lg">تحدي ركلات الجزاء</h3>
-                        <p class="text-xs text-gray-400">سدد ركلات الجزاء ضد حارس ذكي.</p>
                         <button onclick="openPenaltyGame()" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl text-sm">بدء تحدي الجزاء</button>
                     </div>
 
-                    <!-- 4. Auction -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center">
                         <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-gavel"></i></div>
                         <h3 class="font-bold text-white text-lg">سوق المزايدات الحية</h3>
-                        <p class="text-xs text-gray-400">مزايدات فورية على أساطير كرة القدم.</p>
                         <button onclick="openAuctionModal()" class="w-full bg-purple-600 text-white font-bold py-2.5 rounded-xl text-sm">دخول المزايدات</button>
                     </div>
 
-                    <!-- 5. Challenge Wall -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center">
                         <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-fire"></i></div>
                         <h3 class="font-bold text-white text-lg">ساحة الديربي السريع</h3>
-                        <p class="text-xs text-gray-400">مباراة ديربي فورية حاسمة مع خصم افتراضي.</p>
                         <button onclick="openChallengeWall()" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-xl text-sm">بدء الديربي</button>
                     </div>
 
-                    <!-- 6. Crises -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center border border-rose-500/30">
                         <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-triangle-exclamation"></i></div>
                         <h3 class="font-bold text-white text-lg">⚠️ الأزمات الإدارية</h3>
-                        <p class="text-xs text-gray-400">تمرد نجوم أو غرامات تتطلب قراراً فوريًا.</p>
-                        <button onclick="triggerCrisisEvent()" class="w-full bg-rose-700 text-white font-bold py-2.5 rounded-xl text-sm">فحص الأزمات الطارئة</button>
+                        <button onclick="triggerCrisisEvent()" class="w-full bg-rose-700 text-white font-bold py-2.5 rounded-xl text-sm">فحص الأزمات</button>
                     </div>
 
-                    <!-- 7. Mystery Box -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center border border-amber-500/30">
                         <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-box-open"></i></div>
                         <h3 class="font-bold text-white text-lg">📦 صندوق الحظ الغامض</h3>
-                        <p class="text-xs text-gray-400">افتح الصندوق واربح ملايين أو أساطير.</p>
                         <button onclick="openMysteryBox()" class="w-full bg-amber-600 text-black font-bold py-2.5 rounded-xl text-sm">فتح الصندوق (€10M)</button>
                     </div>
 
-                    <!-- 8. Secret Scout -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center border border-purple-500/30">
                         <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-user-secret"></i></div>
                         <h3 class="font-bold text-white text-lg">⚡ مفاجأة الكشاف السري</h3>
-                        <p class="text-xs text-gray-400">استدعِ الكشاف لاكتشاف موهبة خارقة.</p>
                         <button onclick="callSecretScout()" class="w-full bg-purple-700 text-white font-bold py-2.5 rounded-xl text-sm">استدعاء الكشاف</button>
                     </div>
 
-                    <!-- 9. Suspense Gamble -->
                     <div class="glass-panel p-5 rounded-2xl space-y-4 text-center border border-blue-500/30">
                         <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-fire-flame-curved"></i></div>
                         <h3 class="font-bold text-white text-lg">🔥 مقامرة الدقيقة 90</h3>
-                        <p class="text-xs text-gray-400">رهان سريع لمضاعفة أموالك أو خسارتها.</p>
                         <button onclick="playSuspenseGamble()" class="w-full bg-blue-700 text-white font-bold py-2.5 rounded-xl text-sm">بدء الرهان (€15M)</button>
                     </div>
                 </div>
@@ -285,8 +292,8 @@
         <nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-white/10 px-4 py-2 z-30">
             <div class="max-w-4xl mx-auto flex justify-around items-center">
                 <button onclick="switchTab('squad')" class="nav-btn flex flex-col items-center text-amber-400 py-1 px-3 transition" data-tab="squad"><i class="fa-solid fa-shield-cat text-lg"></i><span class="text-[11px] mt-1 font-bold">التشكيلة</span></button>
+                <button onclick="switchTab('packs')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white py-1 px-3 transition" data-tab="packs"><i class="fa-solid fa-box-open text-lg"></i><span class="text-[11px] mt-1 font-bold">الباكجات</span></button>
                 <button onclick="switchTab('market')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white py-1 px-3 transition" data-tab="market"><i class="fa-solid fa-store text-lg"></i><span class="text-[11px] mt-1 font-bold">السوق</span></button>
-                <button onclick="switchTab('managers')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white py-1 px-3 transition" data-tab="managers"><i class="fa-solid fa-user-tie text-lg"></i><span class="text-[11px] mt-1 font-bold">المدربين</span></button>
                 <button onclick="switchTab('rooms')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white py-1 px-3 transition" data-tab="rooms"><i class="fa-solid fa-key text-lg"></i><span class="text-[11px] mt-1 font-bold">الغرف</span></button>
                 <button onclick="switchTab('cup')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white py-1 px-3 transition" data-tab="cup"><i class="fa-solid fa-trophy text-lg"></i><span class="text-[11px] mt-1 font-bold">الكأس</span></button>
                 <button onclick="switchTab('features')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white py-1 px-3 transition" data-tab="features"><i class="fa-solid fa-bolt text-lg text-amber-400"></i><span class="text-[11px] mt-1 font-bold text-amber-400">التحديات</span></button>
@@ -294,7 +301,23 @@
         </nav>
     </div>
 
-    <!-- LIVE MATCH SIMULATOR MODAL (With Web Audio & Arabic Voice Commentary) -->
+    <!-- PACK REVEAL MODAL (Mbappe Games Style Pack Animation) -->
+    <div id="packRevealModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
+        <div class="glass-panel w-full max-w-sm p-8 rounded-3xl text-center space-y-6 glow-gold">
+            <span class="bg-amber-500/20 text-amber-400 px-4 py-1.5 rounded-full text-xs font-black border border-amber-500/30">🎁 فتح الباكج الأسطوري</span>
+            <div id="revealedCard" class="fut-card p-6 rounded-3xl space-y-3 transform scale-110 transition duration-500">
+                <span id="revealPos" class="bg-amber-500 text-black text-xs font-black px-2 py-0.5 rounded">ST</span>
+                <div class="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-amber-400 bg-black/50">
+                    <img id="revealPhoto" src="" class="w-full h-full object-cover">
+                </div>
+                <h3 id="revealName" class="text-xl font-black text-white">كيليان مبابي</h3>
+                <div class="text-2xl font-black text-amber-400" id="revealRating">93</div>
+            </div>
+            <button onclick="closePackReveal()" class="w-full bg-amber-500 text-black font-extrabold py-3 rounded-xl hover:opacity-90 transition">إضافة للنادي وتأكيد</button>
+        </div>
+    </div>
+
+    <!-- LIVE MATCH MODAL -->
     <div id="matchModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/90 backdrop-blur-lg p-4">
         <div class="glass-panel w-full max-w-3xl p-6 rounded-3xl relative space-y-6 border border-emerald-500/40">
             <div class="flex justify-between items-center border-b border-white/10 pb-4">
@@ -319,7 +342,7 @@
         </div>
     </div>
 
-    <!-- PENALTY MINI-GAME MODAL -->
+    <!-- PENALTY MODAL -->
     <div id="penaltyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/90 backdrop-blur-lg p-4">
         <div class="glass-panel w-full max-w-md p-6 rounded-3xl relative space-y-6 text-center">
             <h3 class="text-xl font-black text-amber-400">🎯 تحدي ركلات الجزاء الحاسم</h3>
@@ -334,13 +357,12 @@
         </div>
     </div>
 
-    <!-- FIREBASE & ULTIMATE ONLINE APP SCRIPT -->
+    <!-- FIREBASE & APP LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, set, get, onValue, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Firebase Configuration provided by user
         const firebaseConfig = {
             apiKey: "AIzaSyCBEtbRajG95opDRkHbstnmt79a4v8lUX0",
             authDomain: "xojs-4e0dc.firebaseapp.com",
@@ -366,19 +388,32 @@
             { id: "p4", name: "فيرجيل فان دايك", pos: "CB", rating: 89, price: 40.0, photo: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=120" }
         ];
 
+        const packPools = {
+            normal: [
+                { id: "n1", name: "برونو فيرنانديز", pos: "CAM", rating: 88, price: 25.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" },
+                { id: "n2", name: "روبن دياز", pos: "CB", rating: 89, price: 28.0, photo: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=120" },
+                { id: "n3", name: "فيني جونيور", pos: "LW", rating: 90, price: 35.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" }
+            ],
+            legend: [
+                { id: "l1", name: "ليونيل ميسي", pos: "RW", rating: 94, price: 65.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" },
+                { id: "l2", name: "كريستيانو رونالدو", pos: "ST", rating: 94, price: 65.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" }
+            ],
+            mbappe: [
+                { id: "p1", name: "كيليان مبابي الأسطوري", pos: "ST", rating: 96, price: 90.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" }
+            ]
+        };
+
         const managersCatalog = [
             { id: "m1", name: "بيب جوارديولا", style: "تيكي تاكا هجومية", price: 25.0, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120" },
             { id: "m2", name: "كارلو أنشيلوتي", style: "إدارة نجوم متوازنة", price: 20.0, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120" }
         ];
 
-        // Realtime Auth & Data Sync
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 currentUid = user.uid;
-                const userRef = ref(db, 'users/' + user.uid);
-                onValue(userRef, (snapshot) => {
-                    if (snapshot.exists()) {
-                        currentUserData = snapshot.val();
+                onValue(ref(db, 'users/' + user.uid), (snap) => {
+                    if (snap.exists()) {
+                        currentUserData = snap.val();
                         renderApp();
                     }
                 });
@@ -407,11 +442,7 @@
         window.handleLogin = async function() {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPassword').value;
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-            } catch (e) {
-                alert("خطأ في تسجيل الدخول: " + e.message);
-            }
+            try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { alert("خطأ في تسجيل الدخول: " + e.message); }
         };
 
         window.handleRegister = async function() {
@@ -421,10 +452,7 @@
             const clubName = document.getElementById('regClubName').value;
             const badge = document.querySelector('input[name="clubBadge"]:checked').value;
 
-            if (!email || !pass || !managerName || !clubName) {
-                alert("الرجاء تعبئة كافة الحقول.");
-                return;
-            }
+            if (!email || !pass || !managerName || !clubName) { alert("الرجاء تعبئة كافة الحقول."); return; }
 
             try {
                 const cred = await createUserWithEmailAndPassword(auth, email, pass);
@@ -433,12 +461,10 @@
                     email, managerName, clubName, badge,
                     balance: 300.0,
                     stadiumLevel: 1,
-                    squad: [{ id: "p_init", name: "أحمد هجوم", pos: "ST", rating: 87, price: 30.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" }]
+                    squad: [{ id: "p_init", name: "محمود هجوم", pos: "ST", rating: 87, price: 30.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" }]
                 };
                 await set(ref(db, 'users/' + cred.user.uid), userObj);
-            } catch (e) {
-                alert("خطأ في التسجيل: " + e.message);
-            }
+            } catch (e) { alert("خطأ في التسجيل: " + e.message); }
         };
 
         window.handleLogout = function() { signOut(auth); };
@@ -453,11 +479,10 @@
             document.getElementById('headerClubName').innerText = u.clubName;
             document.getElementById('headerManagerName').innerText = "المدرب: " + u.managerName;
             document.getElementById('headerBalance').innerText = "€" + u.balance.toFixed(1) + "M";
-            document.getElementById('stadiumLevel').innerText = `المستوى ${u.stadiumLevel || 1}`;
+            document.getElementById('stadiumLevel').innerText = u.stadiumLevel || 1;
 
             renderSquad();
             renderMarket();
-            renderManagers();
             listenToRooms();
             listenToCup();
         }
@@ -483,15 +508,48 @@
 
             squad.forEach(p => {
                 container.innerHTML += `
-                    <div class="glass-card p-4 rounded-2xl flex flex-col items-center text-center space-y-2">
-                        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded">${p.pos}</span>
-                        <img src="${p.photo}" class="w-14 h-14 rounded-full object-cover border border-amber-400/30">
+                    <div class="fut-card p-4 rounded-2xl flex flex-col items-center text-center space-y-2">
+                        <span class="bg-amber-500 text-black text-[10px] font-black px-2 py-0.5 rounded">${p.pos}</span>
+                        <div class="w-14 h-14 rounded-full overflow-hidden border border-amber-400 bg-black/40">
+                            <img src="${p.photo}" class="w-full h-full object-cover">
+                        </div>
                         <h4 class="font-bold text-sm text-white">${p.name}</h4>
-                        <span class="text-xs text-amber-300 font-bold">التقييم: ${p.rating}</span>
+                        <span class="text-sm font-black text-amber-300">التقييم: ${p.rating}</span>
                     </div>
                 `;
             });
         }
+
+        // --- PACK OPENING LOGIC (Mbappe Games Special Feature) ---
+        let pendingCard = null;
+        window.openPack = async function(type) {
+            const costs = { normal: 10.0, legend: 25.0, mbappe: 50.0 };
+            const cost = costs[type];
+            if (currentUserData.balance < cost) { alert("رصيدك لا يكفي لفتح هذا الباكج!"); return; }
+
+            currentUserData.balance -= cost;
+            const pool = packPools[type];
+            pendingCard = pool[Math.floor(Math.random() * pool.length)];
+
+            // Check if user already owns it
+            if (!currentUserData.squad.some(p => p.id === pendingCard.id)) {
+                currentUserData.squad.push(pendingCard);
+            }
+
+            await saveUserData();
+
+            // Show Reveal Modal
+            document.getElementById('revealPos').innerText = pendingCard.pos;
+            document.getElementById('revealPhoto').src = pendingCard.photo;
+            document.getElementById('revealName').innerText = pendingCard.name;
+            document.getElementById('revealRating').innerText = pendingCard.rating;
+            document.getElementById('packRevealModal').classList.remove('hidden');
+            renderApp();
+        };
+
+        window.closePackReveal = function() {
+            document.getElementById('packRevealModal').classList.add('hidden');
+        };
 
         function renderMarket() {
             const container = document.getElementById('marketPlayersGrid');
@@ -518,107 +576,68 @@
             if (!player) return;
             const squad = currentUserData.squad || [];
 
-            // Prevent duplicate purchase check
             if (squad.some(p => p.id === id)) {
                 alert("⚠️ هذا اللاعب موجود بالفعل في تشكيلتك ولا يمكن شراؤه مرتين!");
                 return;
             }
 
-            if (currentUserData.balance < player.price) {
-                alert("رصيد ناديك لا يكفي لإتمام هذه الصفقة!");
-                return;
-            }
+            if (currentUserData.balance < player.price) { alert("رصيدك لا يكفي!"); return; }
 
             currentUserData.balance -= player.price;
             currentUserData.squad.push(player);
             await saveUserData();
             renderApp();
-            alert(`تم التعاقد مع النجم ${player.name} بنجاح وتم حفظه في تشكيلتك أونلاين!`);
+            alert(`تم التعاقد مع النجم ${player.name} بنجاح!`);
         };
 
-        function renderManagers() {
-            const container = document.getElementById('managersGrid');
-            container.innerHTML = '';
-            managersCatalog.forEach(m => {
-                container.innerHTML += `
-                    <div class="glass-card p-4 rounded-2xl space-y-3">
-                        <img src="${m.photo}" class="w-12 h-12 rounded-xl object-cover">
-                        <h4 class="font-bold text-sm text-white">${m.name}</h4>
-                        <span class="text-xs text-amber-400">${m.style}</span>
-                        <button class="w-full bg-amber-500 text-black font-bold py-2 rounded-xl text-xs">تعيين</button>
-                    </div>
-                `;
-            });
-        }
-
-        // Online Rooms Sync
         window.createPrivateRoom = async function() {
             const code = Math.floor(1000 + Math.random() * 9000).toString();
-            const roomRef = ref(db, 'rooms/' + code);
-            await set(roomRef, { host: currentUserData.clubName, status: 'waiting' });
-            alert(`تم إنشاء الغرفة أونلاين بنجاح! رمز الغرفة هو: ${code}`);
+            await set(ref(db, 'rooms/' + code), { host: currentUserData.clubName, status: 'waiting' });
+            alert(`تم إنشاء الغرفة أونلاين! رمز الغرفة هو: ${code}`);
         };
 
         window.joinRoomByCode = function() {
             const code = document.getElementById('roomCodeInput').value.trim();
-            const roomRef = ref(db, 'rooms/' + code);
-            get(roomRef).then((snap) => {
-                if (!snap.exists()) {
-                    alert("رمز الغرفة غير صحيح أو غير موجود!");
-                    return;
-                }
-                const roomData = snap.val();
-                startLiveMatch("مباراة الغرفة الخاصة أونلاين", roomData.host);
+            get(ref(db, 'rooms/' + code)).then((snap) => {
+                if (!snap.exists()) { alert("رمز الغرفة غير صحيح!"); return; }
+                startLiveMatch("مباراة الغرفة الخاصة أونلاين", snap.val().host);
             });
         };
 
         function listenToRooms() {
-            const roomsRef = ref(db, 'rooms');
-            onValue(roomsRef, (snapshot) => {
+            onValue(ref(db, 'rooms'), (snap) => {
                 const container = document.getElementById('activeRoomsList');
                 container.innerHTML = '';
-                if (!snapshot.exists()) {
-                    container.innerHTML = '<p class="text-xs text-gray-400 text-center py-4">لا توجد غرف نشطة أونلاين حالياً.</p>';
-                    return;
-                }
-                const rooms = snapshot.val();
-                Object.entries(rooms).forEach(([code, data]) => {
+                if (!snap.exists()) { container.innerHTML = '<p class="text-xs text-gray-400 text-center py-4">لا توجد غرف نشطة حالياً.</p>'; return; }
+                Object.entries(snap.val()).forEach(([code, data]) => {
                     container.innerHTML += `
                         <div class="flex justify-between items-center bg-black/40 p-3 rounded-xl border border-white/5">
                             <span class="text-xs text-white">غرفة المنظم: <b>${data.host}</b> (الرمز: ${code})</span>
-                            <button onclick="startLiveMatch('مباراة أونلاين', '${data.host}')" class="bg-amber-500 text-black font-bold px-3 py-1.5 rounded-lg text-xs">انضمام للمباراة</button>
+                            <button onclick="startLiveMatch('مباراة أونلاين', '${data.host}')" class="bg-amber-500 text-black font-bold px-3 py-1.5 rounded-lg text-xs">انضمام</button>
                         </div>
                     `;
                 });
             });
         }
 
-        // Online Cup Sync
         window.registerForCup = async function() {
-            const cupRef = ref(db, 'cup_participants');
-            const snap = await get(cupRef);
-            let participants = snap.exists() ? snap.val() : [];
-
-            if (participants.some(p => p.uid === currentUid)) {
-                alert("ناديك مسجل بالفعل في بطولة الكأس أونلاين!");
-                return;
-            }
-
-            participants.push({ uid: currentUid, name: currentUserData.clubName, badge: currentUserData.badge });
-            await set(cupRef, participants);
-            alert("تم تسجيل ناديك في كأس تكتكس رويال بنجاح!");
+            const refCup = ref(db, 'cup_participants');
+            const snap = await get(refCup);
+            let parts = snap.exists() ? snap.val() : [];
+            if (parts.some(p => p.uid === currentUid)) { alert("مسجل بالفعل في الكأس!"); return; }
+            parts.push({ uid: currentUid, name: currentUserData.clubName, badge: currentUserData.badge });
+            await set(refCup, parts);
+            alert("تم تسجيل ناديك في الكأس بنجاح!");
         };
 
         function listenToCup() {
-            const cupRef = ref(db, 'cup_participants');
-            onValue(cupRef, (snapshot) => {
-                const participants = snapshot.exists() ? snapshot.val() : [];
-                document.getElementById('cupParticipantsCount').innerText = `${participants.length} / 16 لاعب`;
+            onValue(ref(db, 'cup_participants'), (snap) => {
+                const parts = snap.exists() ? snap.val() : [];
+                document.getElementById('cupParticipantsCount').innerText = `${parts.length} / 16 لاعب`;
                 const container = document.getElementById('cupBracketList');
                 container.innerHTML = '';
-
                 for (let i = 0; i < 16; i++) {
-                    const p = participants[i];
+                    const p = parts[i];
                     container.innerHTML += `
                         <div class="glass-card p-3 rounded-xl flex items-center gap-3 border ${p ? 'border-amber-500/40 bg-amber-500/5' : 'border-gray-800'}">
                             <span class="text-lg">${p ? p.badge : '⚽'}</span>
@@ -632,7 +651,7 @@
             });
         }
 
-        // --- LIVE MATCH ENGINE (Web Audio & Speech) ---
+        // Match Engine
         let matchInterval = null;
         window.startLiveMatch = function(title, awayName) {
             document.getElementById('matchModal').classList.remove('hidden');
@@ -648,7 +667,7 @@
             closeBtn.innerText = "جارِ لعب المباراة...";
 
             playWhistleSound();
-            speakArabic("بدأت المباراة الآن بين الفريقين أونلاين، نتمنى لكم متابعة ممتعة!");
+            speakArabic("بدأت المباراة الآن أونلاين، نتمنى لكم التوفيق!");
 
             let min = 0, hGoals = 0, aGoals = 0;
             if (matchInterval) clearInterval(matchInterval);
@@ -657,18 +676,9 @@
                 min += 3;
                 if (min > 90) min = 90;
                 document.getElementById('matchTimer').innerText = min + "'";
-
-                let text = `الدقيقة ${min}': تنافس قوي في وسط الملعب.`;
-                if (min === 15) {
-                    hGoals++; text = `🔥 هدف أول لصالح ${currentUserData.clubName}!`;
-                    playGoalSound(); speakArabic(`هدف أول لصالح نادي ${currentUserData.clubName}!`);
-                } else if (min === 60) {
-                    aGoals++; text = `⚡ تعادل لصالح ${awayName}!`;
-                    speakArabic(`هدف التعادل لصالح نادي ${awayName}.`);
-                } else if (min === 85) {
-                    hGoals++; text = `🎯 هدف القاتل لصالح ${currentUserData.clubName}!`;
-                    playGoalSound(); speakArabic(`هدف قاتل في الأوقات الحاسمة لصالح نادي ${currentUserData.clubName}!`);
-                }
+                let text = `الدقيقة ${min}': تنافس قوي في الملعب.`;
+                if (min === 20) { hGoals++; text = `🔥 هدف أول لصالح ${currentUserData.clubName}!`; playGoalSound(); speakArabic("هدف أول جميل!"); }
+                else if (min === 70) { aGoals++; text = `⚡ تعادل لصالح ${awayName}!`; speakArabic("هدف التعادل!"); }
 
                 document.getElementById('matchScore').innerText = `${hGoals} - ${aGoals}`;
                 const box = document.getElementById('matchCommentary');
@@ -684,7 +694,7 @@
                     closeBtn.innerText = "إنهاء ومغادرة";
                     currentUserData.balance += 20.0;
                     saveUserData();
-                    alert("انتهت المباراة! تم إضافة مكافأة €20 مليون إلى رصيدك أونلاين.");
+                    alert("انتهت المباراة! حصلت على مكافأة €20 مليون.");
                 }
             }, 700);
         };
@@ -694,8 +704,7 @@
         function playWhistleSound() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
+                const osc = ctx.createOscillator(); const gain = ctx.createGain();
                 osc.frequency.setValueAtTime(2400, ctx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.3);
                 gain.gain.setValueAtTime(0.3, ctx.currentTime);
@@ -724,22 +733,20 @@
             }
         }
 
-        // --- 9 ULTIMATE FEATURES LOGIC (Fully Synced Online) ---
+        // Features
         window.spinDailyWheel = async function() {
-            const prizes = [10, 25, 50, 15, 30];
-            const won = prizes[Math.floor(Math.random() * prizes.length)];
+            const won = [10, 25, 50, 15, 30][Math.floor(Math.random()*5)];
             currentUserData.balance += won;
             await saveUserData();
-            alert(`🎉 مبروك أونلاين! ربحت ${won} مليون يورو من عجلة الحظ!`);
+            alert(`🎉 مبروك! ربحت ${won} مليون يورو من عجلة الحظ!`);
         };
 
         window.upgradeStadium = async function() {
-            const u = currentUserData;
-            if (u.balance < 20.0) { alert("رصيدك لا يكفي لترقية الاستاد (€20M مطلوبة)."); return; }
-            u.balance -= 20.0;
-            u.stadiumLevel = (u.stadiumLevel || 1) + 1;
+            if (currentUserData.balance < 20.0) { alert("رصيد ناديك لا يكفي (€20M مطلوبة)."); return; }
+            currentUserData.balance -= 20.0;
+            currentUserData.stadiumLevel = (currentUserData.stadiumLevel || 1) + 1;
             await saveUserData();
-            alert(`🏟️ تمت ترقية الاستاد بنجاح إلى المستوى ${u.stadiumLevel}!`);
+            alert(`🏟️ تمت ترقية الاستاد بنجاح إلى المستوى ${currentUserData.stadiumLevel}!`);
         };
 
         window.openPenaltyGame = function() { document.getElementById('penaltyModal').classList.remove('hidden'); document.getElementById('penaltyResult').innerText = "اختر الزاوية للتسديد!"; };
@@ -750,71 +757,55 @@
             if (dir !== keeper) {
                 currentUserData.balance += 10.0;
                 await saveUserData();
-                res.innerHTML = `<span class="text-emerald-400">⚽ هدف رائع أونلاين! ربحت +€10M!</span>`;
-                playGoalSound(); speakArabic("هدف جميل من ركلة الجزاء.");
+                res.innerHTML = `<span class="text-emerald-400">⚽ هدف رائع! ربحت +€10M!</span>`;
+                playGoalSound(); speakArabic("هدف جميل.");
             } else {
                 res.innerHTML = `<span class="text-rose-400">❌ تصدى الحارس! هاردلك.</span>`;
                 playWhistleSound();
             }
         };
 
-        window.openAuctionModal = function() { alert("قاعة المزايدات الحية أونلاين: سيتم فتح المزايدات على الأساطير قريباً!"); };
-        window.openChallengeWall = function() { startLiveMatch("ديربي التحدي السريع أونلاين", "صقور العاصمة الافتراضية"); };
+        window.openAuctionModal = function() { alert("قاعة المزايدات الحية أونلاين: قريباً جداً!"); };
+        window.openChallengeWall = function() { startLiveMatch("ديربي التحدي السريع أونلاين", "صقور العاصمة"); };
 
         window.triggerCrisisEvent = async function() {
-            const crises = [
-                { title: "تمرد النجم!", desc: "يطالب نجم الهجوم بزيادة راتبه.", cost: 15.0 },
-                { title: "غرامة الانضباط!", desc: "عقوبة مالية مفروضة من الاتحاد.", cost: 10.0 }
-            ];
-            const c = crises[Math.floor(Math.random()*crises.length)];
-            const u = currentUserData;
-            if (confirm(`${c.title}\n${c.desc}\nهل تود دفع €${c.cost}M لاحتواء الأزمة فوراً؟`)) {
-                if (u.balance < c.cost) { alert("رصيدك لا يكفي!"); return; }
-                u.balance -= c.cost;
+            if (confirm("تمرد النجم! يطالب براتب إضافي. هل تود دفع €15M لاحتواء الأزمة؟")) {
+                if (currentUserData.balance < 15.0) { alert("رصيدك لا يكفي!"); return; }
+                currentUserData.balance -= 15.0;
                 await saveUserData();
-                alert("تم احتواء الأزمة بنجاح أونلاين!");
+                alert("تم احتواء الأزمة بنجاح!");
             }
         };
 
         window.openMysteryBox = async function() {
-            const u = currentUserData;
-            if (u.balance < 10.0) { alert("تحتاج إلى €10M لفتح الصندوق!"); return; }
-            u.balance -= 10.0;
+            if (currentUserData.balance < 10.0) { alert("تحتاج إلى €10M لفتح الصندوق!"); return; }
+            currentUserData.balance -= 10.0;
             const reward = Math.random() > 0.5 ? 30.0 : 10.0;
-            u.balance += reward;
+            currentUserData.balance += reward;
             await saveUserData();
-            alert(`📦 فتحت صندوق الحظ أونلاين وربحت جائزة بقيمة €${reward} مليون!`);
+            alert(`📦 فتحت صندوق الحظ وربحت €${reward} مليون!`);
         };
 
         window.callSecretScout = async function() {
-            const kids = [
-                { id: "w1", name: "بيدري الصاعد", pos: "CM", rating: 89, price: 20.0, photo: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=120" },
-                { id: "w2", name: "لامين يامال", pos: "RW", rating: 90, price: 22.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" }
-            ];
-            const kid = kids[Math.floor(Math.random()*kids.length)];
-            const u = currentUserData;
-            if (u.squad.some(p => p.id === kid.id)) {
-                alert("⚠️ الموهبة التي جلبها الكشاف موجودة لديك بالفعل!");
-                return;
-            }
-            if (confirm(`⚡ الكشاف السري جلب موهبة: ${kid.name} (تقييم ${kid.rating})\nالسعر: €${kid.price}M\nتعاقد فورا؟`)) {
-                if (u.balance < kid.price) { alert("رصيدك لا يكفي!"); return; }
-                u.balance -= kid.price;
-                u.squad.push(kid);
+            const kid = { id: "w1", name: "لامين يامال الأسطوري", pos: "RW", rating: 90, price: 22.0, photo: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=120" };
+            if (currentUserData.squad.some(p => p.id === kid.id)) { alert("الموهبة موجودة لديك بالفعل!"); return; }
+            if (confirm(`⚡ الكشاف السري جلب موهبة: ${kid.name} (تقييم ${kid.rating})\nالسعر: €22M\nتعاقد فوراً؟`)) {
+                if (currentUserData.balance < 22.0) { alert("رصيدك لا يكفي!"); return; }
+                currentUserData.balance -= 22.0;
+                currentUserData.squad.push(kid);
                 await saveUserData();
-                alert(`تم التعاقد مع الموهبة ${kid.name} وحفظها في تشكيلتك أونلاين!`);
+                alert(`تم التعاقد مع الموهبة ${kid.name}!`);
             }
         };
 
         window.playSuspenseGamble = async function() {
-            const u = currentUserData;
-            if (u.balance < 15.0) { alert("رصيدك لا يكفي للمقامرة (€15M مطلوبة)!"); return; }
-            u.balance -= 15.0;
+            if (currentUserData.balance < 15.0) { alert("رصيدك أقل من €15M للمقامرة!"); return; }
+            currentUserData.balance -= 15.0;
             if (Math.random() > 0.4) {
-                u.balance += 40.0;
+                currentUserData.balance += 40.0;
                 alert("⚽ جووول في الدقيقة 90! فزت بـ €40 مليون أونلاين!");
             } else {
-                alert("❌ ضاعت الفرصة وانتهت المباراة! خسرت مبلغ الرهان.");
+                alert("❌ ضاعت الفرصة! خسرت مبلغ الرهان.");
             }
             await saveUserData();
         };
