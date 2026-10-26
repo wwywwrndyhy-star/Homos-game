@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOMOS Games | مزادات الأصدقاء 1 ضد 1 أونلاين</title>
+    <title>HOMOS Games | مزادات 1 ضد 1 حقيقية</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Cairo -->
@@ -37,17 +37,17 @@
 </head>
 <body class="min-h-screen flex flex-col bg-darkBg text-white">
 
-    <!-- LOGIN / NICKNAME SCREEN -->
+    <!-- LOGIN SCREEN -->
     <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-darkBg p-4">
         <div class="glass-panel w-full max-w-md p-8 rounded-3xl text-center space-y-6 border border-emerald-500/30">
             <div class="inline-flex p-4 rounded-full bg-emerald-500/10 text-emerald-400 text-4xl">
                 <i class="fa-solid fa-gamepad"></i>
             </div>
             <h1 class="text-3xl font-black text-emerald-400">HOMOS Games</h1>
-            <p class="text-xs text-gray-400">مزادات كرة القدم المباشرة مع الأصدقاء</p>
+            <p class="text-xs text-gray-400">تحدي المزادات 1 ضد 1 مع الأصدقاء</p>
             
             <input type="text" id="nicknameInput" placeholder="أدخل اسمك المستعار (مثال: حمص)" class="w-full bg-black/50 border border-gray-700 rounded-xl p-3.5 text-sm focus:border-emerald-400 outline-none text-center">
-            <button onclick="enterLobby()" class="w-full bg-emerald-500 text-black font-extrabold py-3.5 rounded-xl shadow-lg hover:opacity-90 transition">دخول صالة الألعاب</button>
+            <button onclick="enterLobby()" class="w-full bg-emerald-500 text-black font-extrabold py-3.5 rounded-xl shadow-lg hover:opacity-90 transition">دخول اللعبة</button>
         </div>
     </div>
 
@@ -62,24 +62,24 @@
             <div class="space-y-4">
                 <div class="p-5 rounded-2xl glass-card space-y-3">
                     <h3 class="font-bold text-sm text-emerald-300"><i class="fa-solid fa-plus"></i> إنشاء غرفة جديدة</h3>
-                    <p class="text-xs text-gray-400">احصل على كود من 4 أرقام وأعطه لصديقك.</p>
-                    <button onclick="createRoom()" class="w-full bg-emerald-500 text-black font-bold py-3 rounded-xl text-sm hover:opacity-90 transition">إنشاء الغرفة</button>
+                    <p class="text-xs text-gray-400">أنشئ غرفة واحصل على كود من 4 أرقام لأخذه لصديقك.</p>
+                    <button onclick="createRoom()" class="w-full bg-emerald-500 text-black font-bold py-3 rounded-xl text-sm hover:opacity-90 transition">إنشاء غرفة</button>
                 </div>
 
                 <div class="p-5 rounded-2xl glass-card space-y-3">
                     <h3 class="font-bold text-sm text-amber-400"><i class="fa-solid fa-key"></i> الانضمام لغرفة صديق</h3>
                     <div class="flex gap-2">
                         <input type="text" id="roomCodeInput" placeholder="كود الغرفة (4 أرقام)" class="flex-1 bg-black/50 border border-gray-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-emerald-400 text-center tracking-widest font-mono">
-                        <button onclick="joinRoom()" class="bg-amber-500 text-black font-bold px-6 py-2.5 rounded-xl text-sm hover:opacity-90 transition">دخول</button>
+                        <button onclick="joinRoom()" class="bg-amber-500 text-black font-bold px-6 py-2.5 rounded-xl text-sm hover:opacity-90 transition">انضمام</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ROOM ARENA SCREEN (1v1 Live Auction) -->
+    <!-- ROOM ARENA SCREEN -->
     <div id="roomScreen" class="hidden flex-1 flex flex-col max-w-4xl w-full mx-auto p-4 space-y-6">
-        <!-- Header -->
+        <!-- Room Header -->
         <div class="glass-panel p-4 rounded-2xl flex justify-between items-center">
             <div>
                 <span class="text-xs text-gray-400">كود الغرفة:</span>
@@ -89,31 +89,42 @@
             <button onclick="leaveRoom()" class="text-red-400 text-xs font-bold hover:underline">مغادرة</button>
         </div>
 
-        <!-- 1v1 Status Cards -->
+        <!-- Dynamic Player vs Opponent Cards -->
         <div class="grid grid-cols-2 gap-4">
+            <!-- MY CARD (أنت) -->
             <div class="glass-panel p-4 rounded-2xl text-center space-y-2 border border-emerald-500/40">
-                <h3 id="hostNameDisplay" class="font-black text-emerald-400 text-sm">المنظم</h3>
-                <div class="text-xs text-gray-400">الميزانية: <span id="hostBudget" class="text-emerald-300 font-bold">€100M</span></div>
-                <div id="hostSquadCount" class="text-xs text-gray-300">اللاعبين: 0 / 5</div>
+                <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded">أنت</span>
+                <h3 id="myNameDisplay" class="font-black text-emerald-400 text-sm">...</h3>
+                <div class="text-xs text-gray-400">الميزانية: <span id="myBudget" class="text-emerald-300 font-bold">€100M</span></div>
+                <div id="mySquadCount" class="text-xs text-gray-300">اللاعبين: 0 / 3</div>
             </div>
+            <!-- OPPONENT CARD (الخصم) -->
             <div class="glass-panel p-4 rounded-2xl text-center space-y-2 border border-amber-500/40">
-                <h3 id="guestNameDisplay" class="font-black text-amber-400 text-sm">الخصم (في انتظار الانضمام)</h3>
-                <div class="text-xs text-gray-400">الميزانية: <span id="guestBudget" class="text-amber-300 font-bold">€100M</span></div>
-                <div id="guestSquadCount" class="text-xs text-gray-300">اللاعبين: 0 / 5</div>
+                <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded">الخصم</span>
+                <h3 id="opponentNameDisplay" class="font-black text-amber-400 text-sm">بانتظار الانضمام...</h3>
+                <div class="text-xs text-gray-400">الميزانية: <span id="opponentBudget" class="text-amber-300 font-bold">€100M</span></div>
+                <div id="opponentSquadCount" class="text-xs text-gray-300">اللاعبين: 0 / 3</div>
             </div>
         </div>
 
-        <!-- WAITING / START HOST BUTTON -->
-        <div id="waitingHostControl" class="text-center py-6 hidden">
-            <button onclick="startAuctionGame()" class="bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-black px-8 py-3.5 rounded-xl shadow-lg hover:opacity-90 transition text-base">
-                <i class="fa-solid fa-play"></i> انضم الخصم! اضغط لبدء معركة المزادات الآن
+        <!-- HOST START BUTTON CONTROL -->
+        <div id="waitingHostControl" class="text-center py-4 hidden">
+            <button onclick="startAuctionGame()" class="bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-black px-8 py-3.5 rounded-xl shadow-lg hover:opacity-90 transition text-base glow-neon">
+                🚀 انضم الخصم! اضغط لبدء معركة المزادات الآن
             </button>
+        </div>
+
+        <!-- GUEST WAITING MESSAGE -->
+        <div id="waitingGuestNotice" class="text-center py-4 hidden">
+            <span class="text-xs text-amber-400 bg-amber-500/10 px-4 py-2 rounded-xl border border-amber-500/20 font-bold animate-pulse">
+                ⏳ تم الانضمام للغرفة! بانتظار صانع الغرفة لبدء المزاد...
+            </span>
         </div>
 
         <!-- LIVE AUCTION ARENA -->
         <div id="auctionArena" class="glass-panel p-6 rounded-3xl text-center space-y-6 hidden">
             <div class="flex justify-between items-center text-xs text-gray-300">
-                <span>الجولة: <b id="auctionRound" class="text-emerald-400">1</b> / 5</span>
+                <span>الجولة: <b id="auctionRound" class="text-emerald-400">1</b> / 3</span>
                 <span class="bg-emerald-500 text-black font-black px-3 py-1 rounded-full" id="aucPos">ST</span>
             </div>
 
@@ -122,7 +133,7 @@
                     <img id="aucPhoto" src="" class="w-full h-full object-cover">
                 </div>
                 <h3 id="aucName" class="text-2xl font-black text-white">اسم اللاعب</h3>
-                <div class="text-lg font-bold text-emerald-300">السعر الحالي: <span id="aucPrice">40.0</span>M</div>
+                <div class="text-lg font-bold text-emerald-300">السعر الحالي: <span id="aucPrice">30.0</span>M</div>
                 <div class="text-xs text-amber-400 font-bold" id="aucCurrentBidder">المزايد الحالي: لا أحد</div>
             </div>
 
@@ -140,7 +151,7 @@
     <!-- MATCH SIMULATION MODAL -->
     <div id="matchModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/95 backdrop-blur-xl p-4">
         <div class="glass-panel w-full max-w-lg p-8 rounded-3xl text-center space-y-6">
-            <h3 class="text-2xl font-black text-emerald-400">⚽ نتيجة ديربي الأصدقاء الأونلاين</h3>
+            <h3 class="text-2xl font-black text-emerald-400">⚽ نتيجة مباراة الديربي</h3>
             <div id="matchResultBox" class="text-sm font-bold text-gray-200 bg-black/50 p-4 rounded-2xl border border-emerald-500/30">
                 جاري حساب تقييمات التشكيلتين...
             </div>
@@ -197,7 +208,7 @@
                 code: code,
                 host: { name: myName, budget: 100.0, squad: [] },
                 guest: null,
-                status: 'waiting', // waiting, auction, finished
+                status: 'waiting',
                 round: 1,
                 currentCard: masterPlayerPool[0],
                 currentBid: masterPlayerPool[0].price,
@@ -217,7 +228,7 @@
             if (!snap.exists()) { alert("الغرفة غير موجودة!"); return; }
 
             const roomData = snap.val();
-            if (roomData.guest) { alert("الغرفة ممتلئة بالخصم بالفعل!"); return; }
+            if (roomData.guest && roomData.guest.name !== myName) { alert("الغرفة ممتلئة بالخصم بالفعل!"); return; }
 
             currentRoomCode = code;
             isHost = false;
@@ -236,25 +247,44 @@
                 if (!snapshot.exists()) return;
                 const room = snapshot.val();
 
-                document.getElementById('hostNameDisplay').innerText = room.host.name;
-                document.getElementById('hostBudget').innerText = "€" + room.host.budget.toFixed(1) + "M";
-                document.getElementById('hostSquadCount').innerText = `اللاعبين: ${room.host.squad.length} / 5`;
+                // Dynamic UI Assignment (Me vs Opponent)
+                const myRole = isHost ? 'host' : 'guest';
+                const oppRole = isHost ? 'guest' : 'host';
 
-                if (room.guest) {
-                    document.getElementById('guestNameDisplay').innerText = room.guest.name;
-                    document.getElementById('guestBudget').innerText = "€" + room.guest.budget.toFixed(1) + "M";
-                    document.getElementById('guestSquadCount').innerText = `اللاعبين: ${room.guest.squad.length} / 5`;
-                    document.getElementById('roomStatusText').innerText = "انضم الخصم بنجاح!";
+                const me = room[myRole];
+                const opp = room[oppRole];
+
+                if (me) {
+                    document.getElementById('myNameDisplay').innerText = me.name;
+                    document.getElementById('myBudget').innerText = "€" + me.budget.toFixed(1) + "M";
+                    document.getElementById('mySquadCount').innerText = `اللاعبين: ${me.squad ? me.squad.length : 0} / 3`;
+                }
+
+                if (opp) {
+                    document.getElementById('opponentNameDisplay').innerText = opp.name;
+                    document.getElementById('opponentBudget').innerText = "€" + opp.budget.toFixed(1) + "M";
+                    document.getElementById('opponentSquadCount').innerText = `اللاعبين: ${opp.squad ? opp.squad.length : 0} / 3`;
+                    document.getElementById('roomStatusText').innerText = "انضم الخصم للغرفة!";
 
                     if (isHost && room.status === 'waiting') {
                         document.getElementById('waitingHostControl').classList.remove('hidden');
+                        document.getElementById('waitingGuestNotice').classList.add('hidden');
+                    } else if (!isHost && room.status === 'waiting') {
+                        document.getElementById('waitingHostControl').classList.add('hidden');
+                        document.getElementById('waitingGuestNotice').classList.remove('hidden');
                     }
+                } else {
+                    document.getElementById('opponentNameDisplay').innerText = "بانتظار الانضمام...";
+                    document.getElementById('waitingHostControl').classList.add('hidden');
+                    document.getElementById('waitingGuestNotice').classList.add('hidden');
                 }
 
+                // If Auction Started -> Show Arena to BOTH players!
                 if (room.status === 'auction') {
                     document.getElementById('waitingHostControl').classList.add('hidden');
+                    document.getElementById('waitingGuestNotice').classList.add('hidden');
                     document.getElementById('auctionArena').classList.remove('hidden');
-                    document.getElementById('roomStatusText').innerText = "المعركة اشتعلت.. المزادات حية!";
+                    document.getElementById('roomStatusText').innerText = "المزادات الحية جارية الآن! 🔥";
 
                     if (room.currentCard) {
                         document.getElementById('auctionRound').innerText = room.round;
@@ -274,10 +304,7 @@
 
         window.startAuctionGame = async function() {
             const roomRef = ref(db, 'rooms/' + currentRoomCode);
-            const snap = await get(roomRef);
-            const room = snap.val();
-            room.status = 'auction';
-            await set(roomRef, room);
+            await update(roomRef, { status: 'auction' });
         };
 
         window.placeBid = async function() {
@@ -286,17 +313,17 @@
             const room = snap.val();
 
             const myRole = isHost ? 'host' : 'guest';
-            const myData = room[myRole];
+            const me = room[myRole];
             const newBid = room.currentBid + 5.0;
 
-            if (myData.budget < newBid) {
+            if (me.budget < newBid) {
                 alert("رصيدك لا يكفي للمزايدة!");
                 return;
             }
 
             room.currentBid = newBid;
-            room.highestBidder = myData.name;
-            await update(roomRef, room);
+            room.highestBidder = me.name;
+            await set(roomRef, room);
         };
 
         window.giveUpAuction = async function() {
@@ -305,31 +332,31 @@
             const room = snap.val();
 
             const myRole = isHost ? 'host' : 'guest';
-            const opponentRole = isHost ? 'guest' : 'host';
-            const myData = room[myRole];
-            const opponentData = room[opponentRole];
+            const oppRole = isHost ? 'guest' : 'host';
 
-            let winnerRole = opponentRole;
-            if (room.highestBidder === myData.name) {
+            let winnerRole = oppRole;
+            if (room.highestBidder === room[myRole].name) {
                 winnerRole = myRole;
             }
             const loserRole = winnerRole === 'host' ? 'guest' : 'host';
 
-            const winningData = room[winnerRole];
-            const losingData = room[loserRole];
+            if (!room[winnerRole].squad) room[winnerRole].squad = [];
+            if (!room[loserRole].squad) room[loserRole].squad = [];
 
-            winningData.budget -= room.currentBid;
-            winningData.squad.push(room.currentCard);
+            // Winner gets card & pays
+            room[winnerRole].budget -= room.currentBid;
+            room[winnerRole].squad.push(room.currentCard);
 
+            // Loser gets random replacement in same position
             const samePosPool = masterPlayerPool.filter(p => p.pos === room.currentCard.pos);
             const replacementCard = samePosPool[Math.floor(Math.random() * samePosPool.length)] || room.currentCard;
-            losingData.squad.push(replacementCard);
+            room[loserRole].squad.push(replacementCard);
 
             if (room.round >= 3) {
                 room.status = 'finished';
             } else {
                 room.round += 1;
-                room.currentCard = masterPlayerPool[Math.floor(Math.random() * masterPlayerPool.length)];
+                room.currentCard = masterPlayerPool[room.round - 1] || masterPlayerPool[0];
                 room.currentBid = room.currentCard.price;
                 room.highestBidder = null;
             }
@@ -339,14 +366,17 @@
 
         function showMatchSimulation(room) {
             document.getElementById('matchModal').classList.remove('hidden');
-            const hostRating = room.host.squad.reduce((a,b)=>a+b.rating,0);
-            const guestRating = room.guest.squad.reduce((a,b)=>a+b.rating,0);
+            const hostSquad = room.host.squad || [];
+            const guestSquad = room.guest.squad || [];
+
+            const hostRating = hostSquad.reduce((a,b)=>a+b.rating,0);
+            const guestRating = guestSquad.reduce((a,b)=>a+b.rating,0);
             const winner = hostRating >= guestRating ? room.host.name : room.guest.name;
 
             document.getElementById('matchResultBox').innerHTML = `
-                انتهت معركة المزادات والديربي!<br><br>
+                انتهت معركة المزادات بنجاح!<br><br>
                 <b>${room.host.name}</b> (مجموع التقييم: ${hostRating}) ضد <b>${room.guest.name}</b> (مجموع التقييم: ${guestRating})<br><br>
-                🏆 الفائز بالبطولة: <span class="text-emerald-400 font-black text-lg">${winner}</span>!
+                🏆 الفائز بالديربي هو: <span class="text-emerald-400 font-black text-xl">${winner}</span>!
             `;
         }
 
